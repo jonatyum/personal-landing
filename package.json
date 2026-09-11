@@ -12,13 +12,16 @@
     "preview": "astro preview",
     "check": "astro check",
     "guard": "node scripts/guard-private.mjs",
-    "check:dist": "node scripts/check-dist.mjs"
+    "check:dist": "node scripts/check-dist.mjs",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "astro": "^7.3.2"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^24.13.4",
     "typescript": "~6.0.3"
   }

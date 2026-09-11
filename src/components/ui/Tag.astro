@@ -1,0 +1,24 @@
+---
+interface Props {
+  as?: 'li' | 'span';
+}
+
+const { as: Element = 'li' } = Astro.props as Props;
+---
+
+<Element class="tag"><slot /></Element>
+
+<style>
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem var(--space-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-1);
+    background: var(--surface);
+    font-family: var(--font-mono-stack);
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text);
+  }
+</style>

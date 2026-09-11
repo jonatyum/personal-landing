@@ -1,0 +1,114 @@
+@layer reset, tokens, base, layout, utilities;
+
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+
+    /* Color: light-dark(light, dark). Contrast checked against WCAG AA. */
+    --bg: light-dark(#f6f4ef, #0b0f14);
+    --surface: light-dark(#ffffff, #121821);
+    --surface-2: light-dark(#eeeae1, #19212c);
+    --border-subtle: light-dark(#ddd8cc, #263140);
+    --border-strong: light-dark(#8f887a, #5e6d82);
+    --text: light-dark(#12161c, #e9eef4);
+    --text-muted: light-dark(#566070, #9ba8b7);
+    --accent: light-dark(#f2a32e, #ffb547); /* primary button fill only */
+    --on-accent: #12161c;
+    --accent-text: light-dark(#9a5200, #ffb547); /* links, focus ring */
+    --ok: light-dark(#0b7443, #5be3a1); /* reserved for the "accepted" verdict */
+    --data-3: light-dark(#3d63d9, #7fa6ff);
+
+    /* Type: fluid between 360px and 1440px */
+    --font-display-stack: var(--font-display), sans-serif;
+    --font-body-stack: var(--font-body), sans-serif;
+    --font-mono-stack: var(--font-mono), ui-monospace, monospace;
+
+    --fs-display: clamp(2.5rem, 1.5rem + 4.444vw, 5.5rem);
+    --lh-display: 0.98;
+    --fs-h2: clamp(2rem, 1.5rem + 2.222vw, 3.5rem);
+    --lh-h2: 1.05;
+    --fs-h3: clamp(1.375rem, 1.25rem + 0.556vw, 1.75rem);
+    --lh-h3: 1.2;
+    --fs-lead: clamp(1.125rem, 1.042rem + 0.37vw, 1.375rem);
+    --lh-lead: 1.5;
+    --fs-body: clamp(1rem, 0.979rem + 0.093vw, 1.0625rem);
+    --lh-body: 1.65;
+    --fs-small: 0.875rem;
+    --lh-small: 1.5;
+    --fs-label: 0.8125rem;
+    --lh-label: 1.4;
+    --tracking-label: 0.08em;
+    --tracking-display: -0.03em;
+    --measure: 65ch;
+
+    /* Space: 4px base */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+    --space-24: 6rem;
+    --space-32: 8rem;
+    --section-pad: clamp(4rem, 2.33rem + 7.41vw, 9rem);
+
+    --radius-1: 4px;
+    --radius-2: 8px;
+    --radius-3: 12px;
+
+    /* Layout. Breakpoints (no custom properties in @media): 600px → 6 cols, 1024px → 12 cols */
+    --container: 1200px;
+    --gutter: 16px;
+    --cols: 1;
+    --header-h: 4rem;
+    --tap: 44px;
+
+    /* Motion */
+    --dur-1: 150ms;
+    --dur-2: 240ms;
+    --dur-3: 500ms;
+    --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+    --z-header: 10;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  :root[data-theme='dark'] {
+    color-scheme: dark;
+  }
+
+  @media (min-width: 600px) {
+    :root {
+      --cols: 6;
+      --gutter: 24px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    :root {
+      --cols: 12;
+    }
+  }
+
+  /* Browsers without light-dark() (Safari < 17.5) get the light theme. */
+  @supports not (color: light-dark(#000, #fff)) {
+    :root {
+      --bg: #f6f4ef;
+      --surface: #ffffff;
+      --surface-2: #eeeae1;
+      --border-subtle: #ddd8cc;
+      --border-strong: #8f887a;
+      --text: #12161c;
+      --text-muted: #566070;
+      --accent: #f2a32e;
+      --accent-text: #9a5200;
+      --ok: #0b7443;
+      --data-3: #3d63d9;
+    }
+  }
+}

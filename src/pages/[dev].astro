@@ -1,0 +1,242 @@
+---
+// Dev-only design system reference at /styleguide/. Production builds generate no page here.
+import type { GetStaticPaths } from 'astro';
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import TextLink from '../components/ui/TextLink.astro';
+import Badge from '../components/ui/Badge.astro';
+import Tag from '../components/ui/Tag.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Disclosure from '../components/ui/Disclosure.astro';
+import Pending from '../components/ui/Pending.astro';
+
+export const getStaticPaths = (() =>
+  import.meta.env.PROD ? [] : [{ params: { dev: 'styleguide' } }]) satisfies GetStaticPaths;
+
+const colors = [
+  'bg',
+  'surface',
+  'surface-2',
+  'border-subtle',
+  'border-strong',
+  'text',
+  'text-muted',
+  'accent',
+  'accent-text',
+  'ok',
+  'data-3',
+];
+
+const typeScale = [
+  { token: 'display', sample: 'Backend con rigor' },
+  { token: 'h2', sample: 'Trayectoria' },
+  { token: 'h3', sample: 'LLM Optimal Segmentation' },
+  { token: 'lead', sample: 'Desarrollo backend en Java: servicios, mensajería y observabilidad.' },
+  { token: 'body', sample: 'Divide textos en segmentos que respetan la ventana de contexto del modelo.' },
+  { token: 'small', sample: 'Texto secundario, notas y pies.' },
+];
+---
+
+<Base title="Styleguide" noindex>
+  <div class="container sg">
+    <header class="sg__intro">
+      <p class="label">Solo desarrollo</p>
+      <h1>Styleguide</h1>
+      <p class="lead">Tokens y componentes base en los dos temas. El tema de la página sigue el conmutador del header.</p>
+    </header>
+
+    <div class="sg__themes">
+      {
+        (['light', 'dark'] as const).map((scheme) => (
+          <div class="sg__panel" data-scheme={scheme}>
+            <p class="label">{scheme === 'light' ? 'Claro' : 'Oscuro'}</p>
+
+            <section class="stack">
+              <h2 class="sg__h">Color</h2>
+              <ul role="list" class="sg__swatches">
+                {colors.map((name) => (
+                  <li class="sg__swatch">
+                    <span class="sg__chip" style={`background: var(--${name})`} />
+                    <code>--{name}</code>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <section class="stack">
+              <h2 class="sg__h">Tipografía</h2>
+              {typeScale.map(({ token, sample }) => (
+                <div class="sg__type">
+                  <code class="label">{token}</code>
+                  <p class={`sg__type-${token}`}>{sample}</p>
+                </div>
+              ))}
+              <div class="sg__type">
+                <code class="label">label mono</code>
+                <p class="label">Desarrollador backend · El Alto, Bolivia</p>
+              </div>
+            </section>
+
+            <section class="stack">
+              <h2 class="sg__h">Botones</h2>
+              <div class="cluster">
+                <Button href="#">Escríbeme</Button>
+                <Button variant="secondary" href="#" icon="arrow-right">
+                  Ver proyectos
+                </Button>
+                <Button variant="ghost" icon="copy" iconPosition="start">
+                  Copiar email
+                </Button>
+              </div>
+              <div class="cluster">
+                <Button size="sm">Pequeño</Button>
+                <Button disabled>Deshabilitado</Button>
+                <Button variant="secondary" loading>
+                  Cargando
+                </Button>
+              </div>
+            </section>
+
+            <section class="stack">
+              <h2 class="sg__h">Enlaces, badges y tags</h2>
+              <p>
+                Texto con un <TextLink href="#">enlace interno</TextLink> y otro <TextLink href="https://github.com" external>
+                  externo
+                </TextLink>.
+              </p>
+              <div class="cluster">
+                <Badge>Abierto a propuestas</Badge>
+                <Badge variant="verdict">Aceptado</Badge>
+              </div>
+              <ul role="list" class="cluster">
+                <Tag>Java</Tag>
+                <Tag>Spring Boot</Tag>
+                <Tag>RabbitMQ</Tag>
+                <Tag>Grafana</Tag>
+              </ul>
+            </section>
+
+            <section class="stack">
+              <h2 class="sg__h">Estructura</h2>
+              <SectionHeader letter="C" title="Trayectoria" meta="2013 – 2025" />
+              <Disclosure summary="Archivo universitario (2017–2020)">
+                <p>Material de INF-111 e INF-131 en Java.</p>
+              </Disclosure>
+              <Pending label="Ejemplo de contenido pendiente." />
+            </section>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Base>
+
+<style>
+  .sg {
+    padding-block: var(--space-16);
+  }
+
+  .sg__intro {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--space-12);
+  }
+
+  .sg__themes {
+    display: grid;
+    gap: var(--gutter);
+  }
+
+  @media (min-width: 1024px) {
+    .sg__themes {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .sg__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-6);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-3);
+    background: var(--bg);
+    color: var(--text);
+    min-width: 0;
+  }
+
+  .sg__panel[data-scheme='light'] {
+    color-scheme: light;
+  }
+
+  .sg__panel[data-scheme='dark'] {
+    color-scheme: dark;
+  }
+
+  .sg__h {
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+  }
+
+  .sg__swatches {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+    gap: var(--space-3);
+  }
+
+  .sg__swatch {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--fs-small);
+  }
+
+  .sg__chip {
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-1);
+    flex-shrink: 0;
+  }
+
+  .sg__type {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .sg__type-display {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    font-weight: 700;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .sg__type-h2 {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: 600;
+    letter-spacing: var(--tracking-display);
+  }
+
+  .sg__type-h3 {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: 600;
+  }
+
+  .sg__type-lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-lead);
+    color: var(--text-muted);
+  }
+
+  .sg__type-small {
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+  }
+</style>

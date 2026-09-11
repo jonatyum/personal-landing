@@ -1,0 +1,41 @@
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .label {
+    font-family: var(--font-mono-stack);
+    font-size: var(--fs-label);
+    line-height: var(--lh-label);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .lead {
+    font-size: var(--fs-lead);
+    line-height: var(--lh-lead);
+    color: var(--text-muted);
+  }
+
+  .muted {
+    color: var(--text-muted);
+  }
+
+  .mono {
+    font-family: var(--font-mono-stack);
+  }
+
+  /* Elements that only make sense with JavaScript. */
+  html:not(.js) .js-only {
+    display: none !important;
+  }
+}

@@ -1,0 +1,147 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Icon, { type IconName } from './Icon.astro';
+
+type Variant = 'primary' | 'secondary' | 'ghost';
+
+type Props = {
+  variant?: Variant;
+  size?: 'md' | 'sm';
+  href?: string;
+  icon?: IconName;
+  iconPosition?: 'start' | 'end';
+  /** Only for <button>: keeps it focusable and announced, but inert. */
+  disabled?: boolean;
+  loading?: boolean;
+  class?: string;
+} & Omit<HTMLAttributes<'a'> & HTMLAttributes<'button'>, 'class' | 'disabled'>;
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  icon,
+  iconPosition = 'end',
+  disabled = false,
+  loading = false,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...rest}>
+      {icon && iconPosition === 'start' && <Icon name={icon} size={18} />}
+      <span>
+        <slot />
+      </span>
+      {icon && iconPosition === 'end' && <Icon name={icon} size={18} />}
+    </a>
+  ) : (
+    <button
+      type="button"
+      class:list={classes}
+      aria-disabled={disabled ? 'true' : undefined}
+      aria-busy={loading ? 'true' : undefined}
+      {...rest}
+    >
+      {loading ? <span class="btn__spinner" aria-hidden="true" /> : icon && iconPosition === 'start' && <Icon name={icon} size={18} />}
+      <span>
+        <slot />
+      </span>
+      {!loading && icon && iconPosition === 'end' && <Icon name={icon} size={18} />}
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: var(--tap);
+    padding: 0 var(--space-6);
+    border: 1px solid transparent;
+    border-radius: var(--radius-2);
+    font-family: var(--font-body-stack);
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      background-color var(--dur-1) var(--ease),
+      border-color var(--dur-1) var(--ease),
+      color var(--dur-1) var(--ease),
+      transform var(--dur-1) var(--ease);
+  }
+
+  .btn--sm {
+    padding: 0 var(--space-4);
+    font-size: 0.9375rem;
+  }
+
+  .btn:active:not([aria-disabled='true']) {
+    transform: translateY(1px);
+  }
+
+  .btn--primary {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .btn--primary:hover:not([aria-disabled='true']) {
+    background: color-mix(in oklab, var(--accent) 88%, var(--text));
+  }
+
+  .btn--secondary {
+    background: transparent;
+    border-color: var(--border-strong);
+    color: var(--text);
+  }
+
+  .btn--secondary:hover:not([aria-disabled='true']) {
+    border-color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--text);
+    padding-inline: var(--space-3);
+  }
+
+  .btn--ghost:hover:not([aria-disabled='true']) {
+    background: var(--surface-2);
+  }
+
+  .btn[aria-disabled='true'] {
+    cursor: not-allowed;
+    background: var(--surface-2);
+    border-color: var(--border-subtle);
+    color: var(--text-muted);
+  }
+
+  .btn[aria-busy='true'] {
+    cursor: progress;
+  }
+
+  .btn__spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 700ms linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+</style>

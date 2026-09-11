@@ -1,0 +1,105 @@
+---
+import Icon from '../ui/Icon.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  /** Shows the text label next to the icon (used inside the mobile menu). */
+  showLabel?: boolean;
+  class?: string;
+}
+
+const { lang, showLabel = false, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button
+  type="button"
+  class:list={['theme-toggle', 'js-only', { 'theme-toggle--labelled': showLabel }, className]}
+  data-theme-toggle
+  aria-pressed="false"
+>
+  <Icon name="moon" class="theme-toggle__moon" />
+  <Icon name="sun" class="theme-toggle__sun" />
+  <span class:list={[{ 'sr-only': !showLabel }]}>{t('theme.dark')}</span>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const media = window.matchMedia('(prefers-color-scheme: dark)');
+  const toggles = document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]');
+
+  const isDark = () => (root.dataset.theme ? root.dataset.theme === 'dark' : media.matches);
+
+  const sync = () => {
+    const pressed = String(isDark());
+    for (const toggle of toggles) toggle.setAttribute('aria-pressed', pressed);
+  };
+
+  for (const toggle of toggles) {
+    toggle.addEventListener('click', () => {
+      const next = isDark() ? 'light' : 'dark';
+      root.dataset.theme = next;
+      try {
+        localStorage.setItem('theme', next);
+      } catch {
+        // Storage can be blocked; the choice then lasts for this page view only.
+      }
+      sync();
+    });
+  }
+
+  media.addEventListener('change', sync);
+  sync();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    min-width: var(--tap);
+    min-height: var(--tap);
+    padding: 0 var(--space-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius-2);
+    background: transparent;
+    color: var(--text);
+    transition: background-color var(--dur-1) var(--ease);
+  }
+
+  .theme-toggle:hover {
+    background: var(--surface-2);
+  }
+
+  .theme-toggle--labelled {
+    justify-content: flex-start;
+    padding: 0 var(--space-3);
+    border-color: var(--border-strong);
+    font-weight: 600;
+  }
+
+  /* The icon follows the effective theme without waiting for JS: moon in light, sun in dark. */
+  .theme-toggle :global(.theme-toggle__sun) {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle :global(.theme-toggle__sun) {
+    display: block;
+  }
+
+  :global(:root[data-theme='dark']) .theme-toggle :global(.theme-toggle__moon) {
+    display: none;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .theme-toggle :global(.theme-toggle__sun) {
+      display: block;
+    }
+
+    :global(:root:not([data-theme='light'])) .theme-toggle :global(.theme-toggle__moon) {
+      display: none;
+    }
+  }
+</style>
