@@ -1,0 +1,15 @@
+# Personal information: never commit
+docs/
+private/
+
+# Dependencies and builds
+node_modules/
+dist/
+.astro/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+.DS_Store

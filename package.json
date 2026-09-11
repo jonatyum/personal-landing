@@ -1,0 +1,25 @@
+{
+  "name": "personal-landing",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "guard": "node scripts/guard-private.mjs",
+    "check:dist": "node scripts/check-dist.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^24.13.4",
+    "typescript": "~6.0.3"
+  }
+}
