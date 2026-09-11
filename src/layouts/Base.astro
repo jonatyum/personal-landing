@@ -11,11 +11,16 @@ interface Props {
   title: string;
   description?: string;
   lang?: Lang;
-  /** Pages that must never be indexed (dev-only tools). */
+  /** Pages that must never be indexed (dev-only tools, 404). */
   noindex?: boolean;
+  /** Structured data, serialized into a JSON-LD script. */
+  jsonLd?: Record<string, unknown>;
 }
 
-const { title, description, lang = defaultLang, noindex = false } = Astro.props;
+const { title, description, lang = defaultLang, noindex = false, jsonLd } = Astro.props;
+// Canonical URLs need an absolute site (SITE_URL); without it the tags are left out.
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const ogLocale = { es: 'es_BO', en: 'en_US' }[lang];
 ---
 
 <!doctype html>
@@ -29,6 +34,14 @@ const { title, description, lang = defaultLang, noindex = false } = Astro.props;
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex" />}
+    {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:locale" content={ogLocale} />
+    <meta name="twitter:card" content="summary" />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
     <!-- Runs before first paint: applies the saved theme so there is no flash. -->
     <script is:inline>
       (() => {

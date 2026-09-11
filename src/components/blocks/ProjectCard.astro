@@ -1,0 +1,99 @@
+---
+import Tag from '../ui/Tag.astro';
+import TextLink from '../ui/TextLink.astro';
+import type { Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  context: string;
+  headline: string;
+  body: string;
+  tags: string[];
+  repo: string;
+  repoLabel: string;
+  featured?: boolean;
+}
+
+const { lang, title, context, headline, body, tags, repo, repoLabel, featured = false } = Astro.props;
+---
+
+<article class:list={['project', { 'project--featured': featured }]}>
+  <div class="project__main">
+    <p class="label">{context}</p>
+    <h3>{title}</h3>
+    <p class="project__headline">{headline}</p>
+    <p class="muted">{body}</p>
+  </div>
+  <div class="project__side">
+    <ul role="list" class="cluster project__tags">
+      {tags.map((tag) => <Tag>{tag}</Tag>)}
+    </ul>
+    <p class="project__links">
+      <TextLink href={repo} external lang={lang}>{repoLabel}<span class="sr-only">: {title}</span></TextLink>
+    </p>
+    <slot />
+  </div>
+</article>
+
+<style>
+  .project {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding: var(--space-6);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-3);
+    background: var(--surface);
+  }
+
+  .project__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .project__headline {
+    font-weight: 600;
+    font-size: var(--fs-lead);
+    line-height: var(--lh-lead);
+  }
+
+  .project__side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-top: auto;
+  }
+
+  .project__tags {
+    --cluster-gap: var(--space-2);
+  }
+
+  .project__links :global(a) {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-weight: 600;
+  }
+
+  @media (min-width: 1024px) {
+    .project--featured {
+      display: grid;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-12);
+      padding: var(--space-12);
+    }
+
+    .project--featured h3 {
+      font-size: var(--fs-h2);
+      line-height: var(--lh-h2);
+      letter-spacing: var(--tracking-display);
+    }
+
+    .project--featured .project__side {
+      margin-top: 0;
+      justify-content: flex-end;
+    }
+  }
+</style>

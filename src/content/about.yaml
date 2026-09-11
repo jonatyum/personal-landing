@@ -1,0 +1,26 @@
+main:
+  bio:
+    - es: Soy Jonatan, desarrollador de software de El Alto, Bolivia. La programación me abrió puertas que no tenía.
+    - es: >-
+        Hoy construyo sistemas backend con Java y Spring Boot, y llevo más de diez años en la programación
+        competitiva: primero como competidor y después como juez y organizador, hasta la IOI 2025.
+    - es: Fuera del código, entreno en el gimnasio. Me mueven los retos.
+  principlesTitle:
+    es: Cómo trabajo
+  principles:
+    - title:
+        es: Resuelvo bajo presión
+      proof:
+        es: Más de diez años de programación competitiva.
+    - title:
+        es: Explico lo complejo
+      proof:
+        es: Cuatro años de clases prácticas en la UMSA.
+    - title:
+        es: Organizo y coordino
+      proof:
+        es: Comités de la IOI 2024 y 2025, y staff en tres regionales del ICPC.
+    - title:
+        es: Evalúo con criterio
+      proof:
+        es: Juez del ICPC Bolivia y tribunal de exámenes docentes en la UMSA.

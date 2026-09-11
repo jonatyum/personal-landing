@@ -1,0 +1,121 @@
+---
+import Section from '../layout/Section.astro';
+import Icon from '../ui/Icon.astro';
+import Pending from '../ui/Pending.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const contact = await single('contact');
+const site = await single('site');
+
+const links = [
+  site.email && { label: site.email, href: `mailto:${site.email}`, external: false },
+  { label: 'GitHub', href: site.links.github, external: true },
+  site.links.linkedin && { label: 'LinkedIn', href: site.links.linkedin, external: true },
+  { label: 'Codeforces', href: site.links.codeforces, external: true },
+].filter((link) => !!link);
+---
+
+<Section name="contact" lang={lang}>
+  <div class="contact">
+    <div class="contact__copy">
+      <p class="contact__title">{pick(contact.title, lang)}</p>
+      <p class="lead">{pick(contact.body, lang)}</p>
+      {!site.email && <Pending label="Email a publicar (y LinkedIn, si se confirma)." />}
+    </div>
+
+    <div class="contact__links">
+      <h3 class="label">{pick(contact.linksTitle, lang)}</h3>
+      <ul role="list">
+        {
+          links.map((link) => (
+            <li>
+              <a class="contact__link" href={link.href}>
+                <span>{link.label}</span>
+                {link.external && <span class="sr-only">{t('link.external')}</span>}
+                <Icon name={link.external ? 'arrow-up-right' : 'mail'} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-12) var(--gutter);
+  }
+
+  .contact__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact__title {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h2);
+    line-height: var(--lh-h2);
+    font-weight: 600;
+    letter-spacing: var(--tracking-display);
+    max-width: 18ch;
+    text-wrap: balance;
+  }
+
+  .contact__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .contact__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 3.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text);
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease);
+  }
+
+  .contact__links li:first-child .contact__link {
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .contact__link:hover {
+    color: var(--accent-text);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .contact__link :global(.icon) {
+      transition: transform var(--dur-2) var(--ease);
+    }
+
+    .contact__link:hover :global(.icon) {
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .contact {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-16);
+      align-items: end;
+    }
+  }
+</style>

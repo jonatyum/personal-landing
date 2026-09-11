@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/ui/Button.astro';
+import { useTranslations } from '../i18n/ui';
+import { withBase } from '../site';
+
+const t = useTranslations('es');
+---
+
+<Base title={t('notFound.title')} noindex>
+  <section class="container not-found" aria-labelledby="not-found-title">
+    <p class="label">404</p>
+    <h1 id="not-found-title">{t('notFound.title')}</h1>
+    <p class="lead">{t('notFound.body')}</p>
+    <div>
+      <Button href={withBase()} icon="arrow-right">{t('notFound.home')}</Button>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    padding-block: var(--space-24) var(--section-pad);
+  }
+</style>

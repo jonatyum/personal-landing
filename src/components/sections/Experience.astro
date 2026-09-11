@@ -1,0 +1,145 @@
+---
+import Section from '../layout/Section.astro';
+import Tag from '../ui/Tag.astro';
+import Pending from '../ui/Pending.astro';
+import type { Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const experience = await single('experience');
+---
+
+<Section name="experience" lang={lang}>
+  <ol role="list" class="jobs">
+    {
+      experience.jobs.map((job, index) => (
+        <li class="job">
+          <p class="job__period label">
+            <time datetime={job.start}>{pick(job.period, lang)}</time>
+          </p>
+          <div class="job__body">
+            <h3>{pick(job.role, lang)}</h3>
+            <p class="job__org">
+              {job.org}
+              {job.orgDetail && <span class="muted"> · {pick(job.orgDetail, lang)}</span>}
+            </p>
+            <p>{pick(job.summary, lang)}</p>
+            {job.achievements.length > 0 && (
+              <ul class="job__achievements">
+                {job.achievements.map((item) => (
+                  <li>{pick(item, lang)}</li>
+                ))}
+              </ul>
+            )}
+            {index === 0 && job.achievements.length === 0 && (
+              <Pending label="Logros concretos con cifras y confirmar qué se puede nombrar por el NDA." />
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="stack-block">
+    <h3>{pick(experience.stackTitle, lang)}</h3>
+    <dl class="stack-groups">
+      {
+        experience.stack.map((group) => (
+          <div class="stack-group">
+            <dt class="label">{pick(group.label, lang)}</dt>
+            <dd>
+              <ul role="list" class="cluster stack-group__items">
+                {group.items.map((item) => (
+                  <Tag>{item}</Tag>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</Section>
+
+<style>
+  .jobs {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .job {
+    display: grid;
+    gap: var(--space-2) var(--gutter);
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .job:last-child {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .job__period {
+    padding-top: 0.35em;
+  }
+
+  .job__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .job__org {
+    font-weight: 500;
+  }
+
+  .job__achievements {
+    padding-inline-start: 1.25em;
+  }
+
+  .stack-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-top: var(--space-16);
+  }
+
+  .stack-groups {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  .stack-group {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .stack-group dd {
+    margin: 0;
+  }
+
+  .stack-group__items {
+    --cluster-gap: var(--space-2);
+  }
+
+  @media (min-width: 600px) {
+    .job,
+    .stack-group {
+      grid-template-columns: minmax(0, 2fr) minmax(0, 4fr);
+    }
+
+    .stack-group dt {
+      padding-top: 0.3em;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .job,
+    .stack-group {
+      grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    }
+  }
+</style>

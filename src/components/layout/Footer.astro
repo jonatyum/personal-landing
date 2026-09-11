@@ -1,12 +1,13 @@
 ---
 import { useTranslations, type Lang } from '../../i18n/ui';
-import { site } from '../../site';
+import { single } from '../../lib/content';
 
 interface Props {
   lang: Lang;
 }
 
 const t = useTranslations(Astro.props.lang);
+const site = await single('site');
 const year = new Date().getFullYear();
 ---
 

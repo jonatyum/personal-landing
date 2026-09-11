@@ -1,0 +1,38 @@
+main:
+  jobs:
+    - role:
+        es: Desarrollador de software
+      org: NVD (New Vision Data)
+      orgDetail:
+        es: Sede en Panamá
+      period:
+        es: Desde 2022
+      start: '2022'
+      summary:
+        es: Desarrollo backend en Java.
+      achievements: []
+    - role:
+        es: Asistente de cátedra
+      org: Universidad Mayor de San Andrés (UMSA)
+      orgDetail:
+        es: Carrera de Informática
+      period:
+        es: 2017 – 2021
+      start: '2017'
+      end: '2021'
+      summary:
+        es: >-
+          Clases prácticas de Introducción a la Informática, Estructura de Datos y Programación Orientada a
+          Objetos.
+  stackTitle:
+    es: Con qué trabajo
+  stack:
+    - label:
+        es: Núcleo profesional
+      items: [Java, Spring Boot, Struts, RabbitMQ, ActiveMQ, Grafana, Prometheus, Docker, React, JavaScript, HTML/CSS]
+    - label:
+        es: En mis proyectos
+      items: [Python, FastAPI, TypeScript, Node.js, Fastify, Prisma, PostgreSQL, Supabase, Ollama, spaCy, Streamlit]
+    - label:
+        es: Base
+      items: [C++, SQL, Hibernate, Git, Linux, LaTeX, Scrum]

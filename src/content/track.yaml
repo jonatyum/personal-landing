@@ -1,0 +1,84 @@
+main:
+  caption:
+    es: Trayectoria en programación competitiva, 2013–2025
+  columns:
+    year:
+      es: Año
+    event:
+      es: Evento
+    place:
+      es: Lugar
+    role:
+      es: Rol
+  rows:
+    - year: 2025
+      event:
+        es: IOI 2025 · Olimpiada Internacional de Informática
+      place: Sucre
+      role:
+        es: Comité técnico anfitrión (HTC)
+      highlight: true
+    - year: 2024
+      event:
+        es: IOI 2024
+      place: Egipto
+      role:
+        es: Comisión organizadora local de la IOI 2025
+    - year: 2022
+      event:
+        es: ICPC Regional Sudamérica Sur
+      place: La Paz · UPB
+      role:
+        es: Staff
+    - year: 2017
+      event:
+        es: ICPC Bolivia, fase nacional
+      place: La Paz · EMI
+      role:
+        es: Juez
+    - year: 2016
+      event:
+        es: ICPC Regional Sudamérica Sur
+      place: La Paz · UMSA
+      role:
+        es: Staff
+    - year: 2015
+      event:
+        es: ICPC Regional Sudamérica Sur
+      place: Yacuiba
+      role:
+        es: Staff
+    - year: 2015
+      event:
+        es: ICPC Bolivia, fase nacional
+      place: La Paz · UPB
+      role:
+        es: Competidor
+    - year: 2014
+      event:
+        es: Campamento de entrenamiento ICPC
+      place: Universidad de Buenos Aires
+      role:
+        es: Participante
+    - year: 2014
+      event:
+        es: 6.ª Olimpiada Científica Estudiantil
+      place: Ministerio de Educación
+      role:
+        es: Comité logístico
+    - year: 2014
+      event:
+        es: 4.ª Olimpiada Científica Estudiantil
+      place: Ministerio de Educación
+      role:
+        es: Colaborador
+    - year: 2013
+      event:
+        es: Exámenes de competencia para docentes y auxiliares (Programación)
+      place: Informática · UMSA
+      role:
+        es: Tribunal
+  profile:
+    label:
+      es: Perfil en Codeforces
+    url: https://codeforces.com/profile/jonatyum

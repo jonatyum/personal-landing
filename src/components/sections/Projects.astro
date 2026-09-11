@@ -1,0 +1,95 @@
+---
+import Section from '../layout/Section.astro';
+import ProjectCard from '../blocks/ProjectCard.astro';
+import Disclosure from '../ui/Disclosure.astro';
+import TextLink from '../ui/TextLink.astro';
+import Pending from '../ui/Pending.astro';
+import type { Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const projects = await single('projects');
+const featured = projects.items.filter((item) => item.featured);
+const rest = projects.items.filter((item) => !item.featured);
+const repoLabel = pick(projects.repoLabel, lang);
+---
+
+<Section name="projects" lang={lang}>
+  <div class="projects">
+    {
+      featured.map((item) => (
+        <ProjectCard
+          lang={lang}
+          featured
+          title={item.title}
+          context={pick(item.context, lang)}
+          headline={pick(item.headline, lang)}
+          body={pick(item.body, lang)}
+          tags={item.tags}
+          repo={item.repo}
+          repoLabel={repoLabel}
+        >
+          <Pending label="Demo interactiva de segmentación (F3): hace falta el JSON exportado de la tesis." />
+        </ProjectCard>
+      ))
+    }
+
+    <ul role="list" class="projects__grid">
+      {
+        rest.map((item) => (
+          <li>
+            <ProjectCard
+              lang={lang}
+              title={item.title}
+              context={pick(item.context, lang)}
+              headline={pick(item.headline, lang)}
+              body={pick(item.body, lang)}
+              tags={item.tags}
+              repo={item.repo}
+              repoLabel={repoLabel}
+            />
+          </li>
+        ))
+      }
+    </ul>
+
+    <Disclosure summary={pick(projects.archive.title, lang)}>
+      <p class="muted">
+        {pick(projects.archive.body, lang)}
+        <TextLink href={projects.archive.link} external lang={lang}>GitHub</TextLink>
+      </p>
+    </Disclosure>
+  </div>
+</Section>
+
+<style>
+  .projects {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gutter);
+  }
+
+  .projects__grid {
+    display: grid;
+    gap: var(--gutter);
+    margin-bottom: var(--space-8);
+  }
+
+  .projects__grid > li {
+    display: flex;
+  }
+
+  .projects__grid > li > :global(*) {
+    flex: 1;
+  }
+
+  @media (min-width: 1024px) {
+    .projects__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

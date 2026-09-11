@@ -1,0 +1,68 @@
+main:
+  repoLabel:
+    es: Ver código
+  items:
+    - id: llm-optimal-segmentation
+      featured: true
+      title: LLM Optimal Segmentation
+      context:
+        es: Tesis de Informática · UMSA
+      headline:
+        es: Cómo partir un texto largo para que quepa en un LLM sin romper su sentido.
+      body:
+        es: >-
+          Divide textos en segmentos que respetan la ventana de contexto del modelo, minimizando el costo
+          computacional y maximizando la coherencia semántica. Usa programación dinámica con óptimo global, con
+          variantes 2D, con solapamiento y de ventana deslizante. Incluye módulo de calibración, interfaz en
+          Streamlit, CLI, API en Python y más de 173 tests.
+      tags: [Python, Ollama, spaCy, Streamlit]
+      repo: https://github.com/jonatyum/llm-optimal-segmentation
+
+    - id: mundial-2026
+      title: Predicción del Mundial 2026
+      context:
+        es: Modelos estadísticos
+      headline:
+        es: Los 104 partidos del Mundial, pronosticados con ~49.000 partidos internacionales desde 1872.
+      body:
+        es: >-
+          Un Elo propio y un ensamble Elo-Davidson + Poisson Dixon-Coles, validado con backtest sobre los
+          Mundiales de 2018 y 2022. Simulaba el torneo completo con Monte Carlo, 100.000 simulaciones en unos
+          2 segundos, y se actualizaba solo dos veces al día.
+      tags: [Python, Monte Carlo, Backtesting]
+      repo: https://github.com/jonatyum/mundial-statistic
+
+    - id: fitapp
+      title: FitApp
+      context:
+        es: Del gimnasio al código
+      headline:
+        es: Una app de entrenamiento sobre 1.324 ejercicios en 10 idiomas.
+      body:
+        es: >-
+          Mapa muscular interactivo, generador de rutinas y registro de entrenamientos. En desarrollo: un coach
+          con IA (RAG con pgvector y Claude).
+      tags: [React, Fastify, Prisma, PostgreSQL, Docker]
+      repo: https://github.com/jonatyum/fitapp
+
+    - id: telegram-downloader-bot
+      title: Telegram Video Downloader
+      context:
+        es: Bot y web
+      headline:
+        es: Pegas un enlace, recibes el video.
+      body:
+        es: >-
+          Un bot de Telegram y una web para descargar videos de TikTok, Instagram, Facebook, YouTube y X. Motor
+          compartido entre bot y web, rate limiting y despliegue en Render y GitHub Pages.
+      tags: [Python, FastAPI, yt-dlp, Supabase]
+      repo: https://github.com/jonatyum/telegram-downloader-bot
+
+  archive:
+    title:
+      es: Archivo universitario (2017–2020)
+    body:
+      es: >-
+        Material de INF-111 e INF-131 en Java, un cliente/servidor TCP, un ejemplo de Hibernate con PostgreSQL y
+        ejercicios en MATLAB.
+    link: https://github.com/jonatyum?tab=repositories

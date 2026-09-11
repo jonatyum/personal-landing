@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from './sections/Hero.astro';
+import Experience from './sections/Experience.astro';
+import Projects from './sections/Projects.astro';
+import Track from './sections/Track.astro';
+import About from './sections/About.astro';
+import Education from './sections/Education.astro';
+import Contact from './sections/Contact.astro';
+import type { Lang } from '../i18n/ui';
+import { pick, single } from '../lib/content';
+import { withBase } from '../site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const site = await single('site');
+const pageUrl = Astro.site ? new URL(withBase(), Astro.site).href : undefined;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  inLanguage: lang,
+  ...(pageUrl && { url: pageUrl }),
+  mainEntity: {
+    '@type': 'Person',
+    name: site.name,
+    alternateName: site.handle,
+    jobTitle: pick(site.jobTitle, lang),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: site.location.locality,
+      addressCountry: site.location.countryCode,
+    },
+    knowsAbout: site.knowsAbout,
+    sameAs: [site.links.github, site.links.codeforces, site.links.linkedin].filter(Boolean),
+    ...(pageUrl && { url: pageUrl }),
+  },
+};
+---
+
+<Base title={pick(site.seo.title, lang)} description={pick(site.seo.description, lang)} lang={lang} jsonLd={jsonLd}>
+  <Hero lang={lang} />
+  <Experience lang={lang} />
+  <Projects lang={lang} />
+  <Track lang={lang} />
+  <About lang={lang} />
+  <Education lang={lang} />
+  <Contact lang={lang} />
+</Base>
