@@ -1,0 +1,336 @@
+---
+import Button from '../ui/Button.astro';
+import Icon from '../ui/Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { sections, sectionId, useTranslations, type Lang } from '../../i18n/ui';
+import { site, withBase } from '../../site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const home = withBase();
+const links = sections.map((section) => ({
+  letter: section.letter,
+  label: t(section.key),
+  href: `${home}#${section.id[lang]}`,
+}));
+const contactHref = `${home}#${sectionId('section.contact', lang)}`;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href={home} aria-label={`${site.name}, ${t('nav.home')}`}>
+      <span class="brand__mark" aria-hidden="true">{site.monogram}</span>
+      <span class="brand__name" aria-hidden="true">{site.name}</span>
+    </a>
+
+    <nav class="nav" aria-label={t('nav.label')}>
+      <ul role="list" class="nav__list">
+        {
+          links.map((link) => (
+            <li>
+              <a class="nav__link" href={link.href}>
+                <span class="nav__letter" aria-hidden="true">
+                  {link.letter}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="site-header__actions">
+      <ThemeToggle lang={lang} class="site-header__theme" />
+      <Button href={contactHref} size="sm">{t('cta.contact')}</Button>
+      <button type="button" class="menu-button js-only" aria-haspopup="dialog" aria-controls="site-menu" data-menu-open>
+        <Icon name="menu" />
+        <span class="sr-only">{t('menu.open')}</span>
+      </button>
+    </div>
+  </div>
+
+  <dialog id="site-menu" class="menu" aria-label={t('nav.label')}>
+    <div class="menu__top container">
+      <span class="brand__mark" aria-hidden="true">{site.monogram}</span>
+      <button type="button" class="menu-button" data-menu-close>
+        <Icon name="close" />
+        <span class="sr-only">{t('menu.close')}</span>
+      </button>
+    </div>
+    <nav class="container menu__body" aria-label={t('nav.label')}>
+      <ul role="list" class="menu__list">
+        {
+          links.map((link) => (
+            <li>
+              <a class="menu__link" href={link.href}>
+                <span class="nav__letter" aria-hidden="true">
+                  {link.letter}
+                </span>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="menu__footer">
+        <ThemeToggle lang={lang} showLabel />
+      </div>
+    </nav>
+  </dialog>
+</header>
+
+<script>
+  const menu = document.querySelector<HTMLDialogElement>('#site-menu');
+  const openButton = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+
+  if (menu && openButton) {
+    openButton.addEventListener('click', () => menu.showModal());
+    menu.querySelector('[data-menu-close]')?.addEventListener('click', () => menu.close());
+    menu.addEventListener('click', (event) => {
+      if ((event.target as Element).closest('a')) menu.close();
+    });
+    // Close when the layout switches to the inline navigation.
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => {
+      if (event.matches && menu.open) menu.close();
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-header);
+    background: var(--bg);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    min-height: var(--header-h);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    min-width: var(--tap);
+    min-height: var(--tap);
+    color: var(--text);
+    text-decoration: none;
+    font-family: var(--font-display-stack);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    margin-inline-end: auto;
+  }
+
+  .brand__mark {
+    flex-shrink: 0;
+    display: inline-grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border: 1px solid var(--text);
+    border-radius: var(--radius-2);
+    font-family: var(--font-mono-stack);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--text);
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav__list {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .nav__link,
+  .menu__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav__link {
+    min-height: var(--tap);
+    align-items: center;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-2);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .nav__link:hover {
+    background: var(--surface-2);
+  }
+
+  .nav__letter {
+    font-family: var(--font-mono-stack);
+    font-size: 0.8125em;
+    font-weight: 500;
+    color: var(--accent-text);
+  }
+
+  .site-header__actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .site-header__actions :global(.site-header__theme) {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-grid;
+    place-items: center;
+    width: var(--tap);
+    height: var(--tap);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-2);
+    background: transparent;
+    color: var(--text);
+  }
+
+  .menu-button:hover {
+    background: var(--surface-2);
+  }
+
+  /* Below 480px there is no room for the name next to the actions; at 1024–1199px the inline nav needs it. */
+  @media (max-width: 479px), (min-width: 1024px) and (max-width: 1199px) {
+    .brand__name {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .nav {
+      display: block;
+    }
+
+    .site-header__actions :global(.site-header__theme) {
+      display: inline-flex;
+    }
+
+    .site-header__actions .menu-button {
+      display: none;
+    }
+  }
+
+  /* Without JS the dialog can't open: show the section links as a wrapped row instead. */
+  :global(html:not(.js)) .site-header {
+    position: static;
+  }
+
+  @media (max-width: 1023px) {
+    :global(html:not(.js)) .site-header__inner {
+      flex-wrap: wrap;
+      padding-block: var(--space-2);
+    }
+
+    :global(html:not(.js)) .nav {
+      display: block;
+      order: 3;
+      width: 100%;
+      margin: 0;
+    }
+
+    :global(html:not(.js)) .nav__list {
+      flex-wrap: wrap;
+    }
+  }
+
+  /* Mobile menu */
+  .menu {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  .menu[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu::backdrop {
+    background: var(--bg);
+  }
+
+  .menu__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: var(--header-h);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .menu__body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-block: var(--space-6) var(--space-8);
+    overflow-y: auto;
+  }
+
+  .menu__list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu__link {
+    width: 100%;
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--border-subtle);
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .menu__link:hover {
+    color: var(--accent-text);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .menu[open] {
+      animation: menu-in var(--dur-2) var(--ease);
+    }
+  }
+
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  :global(html:has(#site-menu[open])) {
+    overflow: hidden;
+  }
+</style>

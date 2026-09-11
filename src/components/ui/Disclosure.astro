@@ -1,0 +1,59 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  summary: string;
+  open?: boolean;
+}
+
+const { summary, open = false } = Astro.props;
+---
+
+<details class="disclosure" open={open}>
+  <summary>
+    <span>{summary}</span>
+    <Icon name="chevron-down" size={18} class="disclosure__icon" />
+  </summary>
+  <div class="disclosure__body">
+    <slot />
+  </div>
+</details>
+
+<style>
+  .disclosure {
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--tap);
+    padding-block: var(--space-2);
+    cursor: pointer;
+    font-weight: 600;
+    list-style: none;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary:hover {
+    color: var(--accent-text);
+  }
+
+  summary :global(.disclosure__icon) {
+    transition: transform var(--dur-2) var(--ease);
+  }
+
+  .disclosure[open] summary :global(.disclosure__icon) {
+    transform: rotate(180deg);
+  }
+
+  .disclosure__body {
+    padding-block: var(--space-2) var(--space-6);
+  }
+</style>

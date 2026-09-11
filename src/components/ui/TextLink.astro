@@ -1,0 +1,44 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+type Props = HTMLAttributes<'a'> & {
+  href: string;
+  external?: boolean;
+  lang?: Lang;
+};
+
+const { href, external = false, lang = 'es', class: className, ...rest } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<a href={href} class:list={['text-link', className]} {...rest}>
+  <slot />{
+    external && (
+      <>
+        <Icon name="arrow-up-right" size={14} class="text-link__icon" />
+        <span class="sr-only">{t('link.external')}</span>
+      </>
+    )
+  }
+</a>
+
+<style>
+  .text-link {
+    color: var(--accent-text);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .text-link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .text-link :global(.text-link__icon) {
+    display: inline-block;
+    vertical-align: -0.1em;
+    margin-inline-start: 0.15em;
+  }
+</style>

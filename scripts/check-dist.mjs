@@ -8,6 +8,12 @@ const FORBIDDEN_NAME = /(^|\/)perfil[^/]*$/;
 const TEXT_EXT = new Set(['.html', '.xml', '.txt', '.json', '.js', '.css', '.svg']);
 // Content placeholders are written in Spanish: PENDIENTE, CONFIRMAR, FALTA.
 const MARKERS = /\b(PENDIENTE|CONFIRMAR|FALTA)\b/;
+// With a base path (GitHub Pages project site), every root-relative URL must start with it.
+const BASE = (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
+const ROOT_URL = /\s(?:href|src)="(\/(?!\/)[^"]*)"/g;
+// Local or private-network hosts in the output mean a shell variable leaked into the build.
+const PRIVATE_HOST =
+  /\b(?:https?:)?\/\/(?:localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[01])\.\d+\.\d+)(?::\d+)?/;
 
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
@@ -30,8 +36,18 @@ try {
       continue;
     }
     if (!TEXT_EXT.has(ext)) continue;
-    const match = (await readFile(path, 'utf8')).match(MARKERS);
+    const text = await readFile(path, 'utf8');
+    const match = text.match(MARKERS);
     if (match) problems.push(`${rel}: contains the marker "${match[1]}"`);
+    const host = text.match(PRIVATE_HOST);
+    if (host) problems.push(`${rel}: points to a local or private host (a shell variable leaked into the build?)`);
+    if (BASE && ext === '.html') {
+      for (const [, url] of text.matchAll(ROOT_URL)) {
+        if (url !== BASE && !url.startsWith(`${BASE}/`)) {
+          problems.push(`${rel}: "${url}" does not start with the base path ${BASE}`);
+        }
+      }
+    }
   }
 } catch (error) {
   if (error.code === 'ENOENT') {

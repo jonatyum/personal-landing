@@ -1,0 +1,31 @@
+---
+import { useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = useTranslations(Astro.props.lang);
+---
+
+<a class="skip-link" href="#main">{t('skip.main')}</a>
+
+<style>
+  .skip-link {
+    position: fixed;
+    top: var(--space-2);
+    left: var(--space-2);
+    z-index: calc(var(--z-header) + 1);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-2);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 600;
+    text-decoration: none;
+    transform: translateY(calc(-100% - var(--space-4)));
+  }
+
+  .skip-link:focus-visible {
+    transform: none;
+  }
+</style>

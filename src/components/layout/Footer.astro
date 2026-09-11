@@ -1,0 +1,40 @@
+---
+import { useTranslations, type Lang } from '../../i18n/ui';
+import { site } from '../../site';
+
+interface Props {
+  lang: Lang;
+}
+
+const t = useTranslations(Astro.props.lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <p class="site-footer__name">{site.name}</p>
+    <p class="label">{t('footer.place')} · © {year}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border-subtle);
+    padding-block: var(--space-12);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+  }
+
+  .site-footer__name {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+</style>
