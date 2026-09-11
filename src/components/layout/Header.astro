@@ -3,7 +3,8 @@ import Button from '../ui/Button.astro';
 import Icon from '../ui/Icon.astro';
 import ThemeToggle from './ThemeToggle.astro';
 import { sections, sectionId, useTranslations, type Lang } from '../../i18n/ui';
-import { site, withBase } from '../../site';
+import { withBase } from '../../site';
+import { single } from '../../lib/content';
 
 interface Props {
   lang: Lang;
@@ -11,6 +12,7 @@ interface Props {
 
 const { lang } = Astro.props;
 const t = useTranslations(lang);
+const site = await single('site');
 const home = withBase();
 const links = sections.map((section) => ({
   letter: section.letter,
@@ -22,9 +24,9 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href={home} aria-label={`${site.name}, ${t('nav.home')}`}>
-      <span class="brand__mark" aria-hidden="true">{site.monogram}</span>
-      <span class="brand__name" aria-hidden="true">{site.name}</span>
+    <a class="brand" href={home}>
+      <span class="brand__mark">{site.monogram}</span>
+      <span class="brand__name">{site.name}</span>
     </a>
 
     <nav class="nav" aria-label={t('nav.label')}>
@@ -212,10 +214,16 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
     background: var(--surface-2);
   }
 
-  /* Below 480px there is no room for the name next to the actions; at 1024–1199px the inline nav needs it. */
+  /* Below 480px there is no room for the name next to the actions; at 1024–1199px the inline nav needs it.
+     It stays in the accessible name. */
   @media (max-width: 479px), (min-width: 1024px) and (max-width: 1199px) {
     .brand__name {
-      display: none;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
     }
   }
 

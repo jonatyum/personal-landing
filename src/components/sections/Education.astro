@@ -1,0 +1,81 @@
+---
+import Section from '../layout/Section.astro';
+import Pending from '../ui/Pending.astro';
+import type { Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const education = await single('education');
+---
+
+<Section name="education" lang={lang}>
+  <div class="education">
+    <div class="education__col">
+      <h3>{pick(education.degreesTitle, lang)}</h3>
+      <ul role="list">
+        {
+          education.degrees.map((degree) => (
+            <li class="education__item">
+              <p class="education__title">{pick(degree.title, lang)}</p>
+              <p class="muted">
+                {degree.org}
+                {degree.year && <> · {degree.year}</>}
+              </p>
+              {degree.detail && <p class="muted">{pick(degree.detail, lang)}</p>}
+            </li>
+          ))
+        }
+      </ul>
+      <Pending label="Estado de la tesis, si se muestra Matemática, y nivel de inglés." />
+    </div>
+
+    <div class="education__col">
+      <h3>{pick(education.coursesTitle, lang)}</h3>
+      <ul role="list">
+        {
+          education.courses.map((course) => (
+            <li class="education__item">
+              <p class="education__title">{course.title}</p>
+              <p class="muted">
+                {course.org} · {course.year}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .education {
+    display: grid;
+    gap: var(--space-12) var(--gutter);
+  }
+
+  .education__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .education__item {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .education__title {
+    font-weight: 600;
+  }
+
+  @media (min-width: 1024px) {
+    .education {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+    }
+  }
+</style>

@@ -1,0 +1,22 @@
+main:
+  # Provisional display name and monogram until confirmed.
+  name: Jonatan Churata
+  monogram: JC
+  handle: jonatyum
+  jobTitle:
+    es: Desarrollador backend Java
+  location:
+    locality: El Alto
+    country: Bolivia
+    countryCode: BO
+  seo:
+    title:
+      es: Jonatan Churata · Desarrollador backend Java · Bolivia
+    description:
+      es: >-
+        Desarrollador backend Java (Spring Boot, RabbitMQ, ActiveMQ) de El Alto, Bolivia. Más de diez años en
+        programación competitiva, del ICPC a la IOI 2025. Abierto a propuestas.
+  knowsAbout: [Java, Spring Boot, Struts, RabbitMQ, ActiveMQ, Grafana, Prometheus, Docker, React]
+  links:
+    github: https://github.com/jonatyum
+    codeforces: https://codeforces.com/profile/jonatyum

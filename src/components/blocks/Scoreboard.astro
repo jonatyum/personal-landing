@@ -1,0 +1,175 @@
+---
+// Explicit ARIA roles keep the table semantics when the rows become cards on small screens.
+interface Row {
+  year: number;
+  event: string;
+  place: string;
+  role: string;
+  highlight: boolean;
+}
+
+interface Props {
+  caption: string;
+  columns: { year: string; event: string; place: string; role: string };
+  rows: Row[];
+}
+
+const { caption, columns, rows } = Astro.props;
+---
+
+<div class="scoreboard">
+  <table role="table">
+    <caption class="label">{caption}</caption>
+    <thead role="rowgroup">
+      <tr role="row">
+        <th role="columnheader" scope="col">{columns.year}</th>
+        <th role="columnheader" scope="col">{columns.event}</th>
+        <th role="columnheader" scope="col">{columns.place}</th>
+        <th role="columnheader" scope="col">{columns.role}</th>
+      </tr>
+    </thead>
+    <tbody role="rowgroup">
+      {
+        rows.map((row) => (
+          <tr role="row" class:list={{ 'is-highlight': row.highlight }}>
+            <th role="rowheader" scope="row" class="scoreboard__year">
+              {row.year}
+            </th>
+            <td role="cell" class="scoreboard__event">
+              {row.event}
+            </td>
+            <td role="cell" class="scoreboard__place">
+              {row.place}
+            </td>
+            <td role="cell" class="scoreboard__role">
+              {row.role}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .scoreboard table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  caption {
+    text-align: start;
+    padding-bottom: var(--space-4);
+  }
+
+  th,
+  td {
+    text-align: start;
+    vertical-align: baseline;
+  }
+
+  thead {
+    /* Visually hidden on cards; shown again from 600px. */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  tbody tr {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-1) var(--space-3);
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  tbody tr:last-child {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .scoreboard__year {
+    font-family: var(--font-mono-stack);
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .scoreboard__role {
+    font-weight: 600;
+  }
+
+  .scoreboard__event,
+  .scoreboard__place {
+    grid-column: 1 / -1;
+  }
+
+  .scoreboard__place {
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+  }
+
+  /* Cards: year and role on the first line. */
+  tbody tr .scoreboard__role {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .is-highlight .scoreboard__role,
+  .is-highlight .scoreboard__year {
+    color: var(--accent-text);
+  }
+
+  @media (min-width: 600px) {
+    thead {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip-path: none;
+      white-space: normal;
+    }
+
+    thead th {
+      padding: 0 var(--space-4) var(--space-3) 0;
+      font-family: var(--font-mono-stack);
+      font-size: var(--fs-label);
+      font-weight: 500;
+      letter-spacing: var(--tracking-label);
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-strong);
+    }
+
+    tbody tr {
+      display: table-row;
+      padding: 0;
+      border: 0;
+    }
+
+    tbody th,
+    tbody td {
+      padding: var(--space-4) var(--space-4) var(--space-4) 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    tbody tr:last-child {
+      border: 0;
+    }
+
+    .scoreboard__place {
+      font-size: inherit;
+    }
+
+    .is-highlight th,
+    .is-highlight td {
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+    }
+
+    .is-highlight th {
+      padding-inline-start: var(--space-3);
+      border-inline-start: 2px solid var(--accent-text);
+    }
+  }
+</style>

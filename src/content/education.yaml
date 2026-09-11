@@ -1,0 +1,25 @@
+main:
+  degreesTitle:
+    es: Estudios
+  degrees:
+    - title:
+        es: Licenciatura en Informática
+      org: Universidad Mayor de San Andrés (UMSA)
+      detail:
+        es: 'Tesis: LLM Optimal Segmentation'
+    - title:
+        es: Técnico en ensamblaje, configuración y mantenimiento de computadoras
+      org: Fundación INFOCAL
+      year: '2012'
+  coursesTitle:
+    es: Cursos
+  courses:
+    - title: Aplicaciones Industriales con Arduino
+      org: UMSA
+      year: '2017'
+    - title: Uso Responsable de las TICs
+      org: UMSA
+      year: '2018'
+    - title: SCRUM con LEGO
+      org: Gobierno Autónomo Municipal de El Alto
+      year: '2019'

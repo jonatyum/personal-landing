@@ -1,0 +1,47 @@
+main:
+  eyebrow:
+    es: Desarrollador backend · El Alto, Bolivia
+  status:
+    es: Abierto a propuestas
+  title:
+    es: Backend Java con rigor de olimpiada.
+  subtitle:
+    es: >-
+      Soy Jonatan Churata. Desde 2022 construyo sistemas backend con Java y Spring Boot. Llevo más de diez años
+      en la programación competitiva: fui competidor, juez y staff, y formé parte del comité técnico anfitrión de
+      la IOI 2025.
+  primaryCta:
+    label:
+      es: Escríbeme
+    section: contact
+  secondaryCta:
+    label:
+      es: Ver proyectos
+    section: projects
+  verdict:
+    label:
+      es: Stack principal
+    cases:
+      - Java · Spring Boot
+      - RabbitMQ · ActiveMQ
+      - Grafana · Prometheus
+      - Docker
+    result:
+      es: Aceptado
+  proofs:
+    - value:
+        es: IOI 2025
+      label:
+        es: Host Technical Committee
+    - value:
+        es: Desde 2022
+      label:
+        es: Backend Java en NVD
+    - value:
+        es: 10+ años
+      label:
+        es: En programación competitiva
+    - value:
+        es: 4 años
+      label:
+        es: Asistente de cátedra en la UMSA

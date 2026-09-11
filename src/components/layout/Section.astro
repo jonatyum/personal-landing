@@ -1,0 +1,39 @@
+---
+import SectionHeader from '../ui/SectionHeader.astro';
+import { sections, useTranslations, type Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+type Key = 'experience' | 'projects' | 'track' | 'about' | 'education' | 'contact';
+
+interface Props {
+  name: Key;
+  lang: Lang;
+}
+
+const { name, lang } = Astro.props;
+const t = useTranslations(lang);
+const section = sections.find((s) => s.key === `section.${name}`)!;
+const id = section.id[lang];
+const copy = (await single('sections'))[name];
+---
+
+<section id={id} class="section" aria-labelledby={`${id}-title`}>
+  <div class="container">
+    <SectionHeader letter={section.letter} title={t(section.key)} id={`${id}-title`}>
+      {copy?.lead && <p class="section__lead">{pick(copy.lead, lang)}</p>}
+      {copy?.intro && <p class="lead">{pick(copy.intro, lang)}</p>}
+    </SectionHeader>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .section__lead {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    max-width: 30ch;
+  }
+</style>

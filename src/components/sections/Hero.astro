@@ -1,0 +1,144 @@
+---
+import Button from '../ui/Button.astro';
+import Badge from '../ui/Badge.astro';
+import VerdictPanel from '../blocks/VerdictPanel.astro';
+import { sectionId, type Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+import { withBase } from '../../site';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const hero = await single('hero');
+const href = (section: typeof hero.primaryCta.section) => `${withBase()}#${sectionId(`section.${section}`, lang)}`;
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__copy">
+      <div class="hero__meta">
+        <p class="label">{pick(hero.eyebrow, lang)}</p>
+        <Badge>{pick(hero.status, lang)}</Badge>
+      </div>
+      <h1 id="hero-title">{pick(hero.title, lang)}</h1>
+      <p class="lead hero__subtitle">{pick(hero.subtitle, lang)}</p>
+      <div class="cluster hero__ctas">
+        <Button href={href(hero.primaryCta.section)}>{pick(hero.primaryCta.label, lang)}</Button>
+        <Button variant="secondary" href={href(hero.secondaryCta.section)} icon="arrow-right">
+          {pick(hero.secondaryCta.label, lang)}
+        </Button>
+      </div>
+    </div>
+
+    <div class="hero__panel">
+      <VerdictPanel
+        lang={lang}
+        label={pick(hero.verdict.label, lang)}
+        cases={hero.verdict.cases}
+        result={pick(hero.verdict.result, lang)}
+      />
+    </div>
+
+    <dl class="hero__proofs">
+      {
+        hero.proofs.map((proof) => (
+          <div class="hero__proof">
+            <dt>{pick(proof.value, lang)}</dt>
+            <dd>{pick(proof.label, lang)}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: var(--space-16) var(--section-pad);
+  }
+
+  .hero__grid {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: var(--space-12) var(--gutter);
+    align-items: center;
+  }
+
+  .hero__copy,
+  .hero__panel,
+  .hero__proofs {
+    grid-column: 1 / -1;
+  }
+
+  .hero__copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .hero__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .hero__subtitle {
+    max-width: 58ch;
+  }
+
+  .hero__ctas {
+    --cluster-gap: var(--space-3);
+    padding-top: var(--space-2);
+  }
+
+  .hero__proofs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .hero__proof {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-6) var(--space-4) 0 0;
+  }
+
+  .hero__proof dt {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    line-height: var(--lh-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .hero__proof dd {
+    margin: 0;
+    font-size: var(--fs-small);
+    line-height: var(--lh-small);
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 600px) {
+    .hero__proofs {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding-block: var(--space-24) var(--section-pad);
+    }
+
+    .hero__copy {
+      grid-column: 1 / span 7;
+    }
+
+    .hero__panel {
+      grid-column: 9 / span 4;
+    }
+  }
+</style>

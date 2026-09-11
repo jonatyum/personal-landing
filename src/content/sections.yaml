@@ -1,0 +1,20 @@
+main:
+  experience:
+    lead:
+      es: Desarrollo backend en Java, con mensajería y observabilidad.
+  projects:
+    lead:
+      es: Lo que construyo por mi cuenta.
+    intro:
+      es: Proyectos propios, con el código abierto en GitHub.
+  track:
+    lead:
+      es: Diez años en la programación competitiva, a los dos lados del enunciado.
+    intro:
+      es: >-
+        Empecé resolviendo problemas contra el reloj. Después pasé a juzgarlos, a organizar competencias y, en
+        2025, al comité técnico anfitrión de la Olimpiada Internacional de Informática, en Sucre: 330 concursantes
+        de 84 delegaciones.
+  about: {}
+  education: {}
+  contact: {}

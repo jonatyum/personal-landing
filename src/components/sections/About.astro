@@ -1,0 +1,79 @@
+---
+import Section from '../layout/Section.astro';
+import Pending from '../ui/Pending.astro';
+import type { Lang } from '../../i18n/ui';
+import { pick, single } from '../../lib/content';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const about = await single('about');
+---
+
+<Section name="about" lang={lang}>
+  <div class="about">
+    <div class="about__bio">
+      {
+        about.bio.map((paragraph, index) => (
+          <p class:list={{ lead: index === 0 }}>{pick(paragraph, lang)}</p>
+        ))
+      }
+      <Pending label="Confirmar cuánto de la historia personal va en la bio, y añadir una foto actual." />
+    </div>
+
+    <div class="about__principles">
+      <h3>{pick(about.principlesTitle, lang)}</h3>
+      <ul role="list">
+        {
+          about.principles.map((item) => (
+            <li>
+              <p class="about__principle">{pick(item.title, lang)}</p>
+              <p class="muted">{pick(item.proof, lang)}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .about {
+    display: grid;
+    gap: var(--space-12) var(--gutter);
+  }
+
+  .about__bio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .about__bio .lead {
+    color: var(--text);
+  }
+
+  .about__principles {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .about__principles li {
+    padding-block: var(--space-4);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .about__principle {
+    font-weight: 600;
+  }
+
+  @media (min-width: 1024px) {
+    .about {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: var(--space-16);
+    }
+  }
+</style>
