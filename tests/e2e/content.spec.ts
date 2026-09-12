@@ -65,9 +65,14 @@ test('every in-page link points to an existing section', async ({ page }) => {
 test('contact lists the social networks and no code profiles', async ({ page }) => {
   await page.goto('./');
   const contact = page.locator('#contacto');
-  for (const name of ['Telegram', 'Instagram', 'Facebook', 'LinkedIn']) {
+  for (const name of ['Telegram', 'WhatsApp', 'Instagram', 'Facebook', 'LinkedIn']) {
     await expect(contact.getByRole('link', { name: new RegExp(name) })).toHaveCount(1);
   }
+  // wa.me needs the number in full international form, or the link opens an empty chat.
+  await expect(contact.getByRole('link', { name: /WhatsApp/ })).toHaveAttribute(
+    'href',
+    /^https:\/\/wa\.me\/\d{11,}$/,
+  );
   await expect(contact.getByRole('link', { name: /GitHub|Codeforces/ })).toHaveCount(0);
 });
 

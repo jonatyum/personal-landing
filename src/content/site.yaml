@@ -28,6 +28,8 @@ main:
   links:
     github: https://github.com/jonatyum
     telegram: https://t.me/jonatyum
+    # wa.me takes the number in full international form, digits only.
+    whatsapp: https://wa.me/59175803727
     instagram: https://instagram.com/jonatyum
     facebook: https://facebook.com/jonatyum
     linkedin: https://www.linkedin.com/in/jonatyum
