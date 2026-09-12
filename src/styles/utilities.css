@@ -34,6 +34,23 @@
     font-family: var(--font-mono-stack);
   }
 
+  /* Sections and cards slide in as they enter the viewport (see reveal.ts). */
+  @media (prefers-reduced-motion: no-preference) {
+    html.reveal-ready [data-reveal]:not(.scoreboard) {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+
+    html.reveal-ready [data-reveal][data-revealed]:not(.scoreboard) {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity var(--dur-3) var(--ease),
+        transform var(--dur-3) var(--ease);
+      transition-delay: calc(var(--reveal-delay, 0) * 90ms);
+    }
+  }
+
   /* Elements that only make sense with JavaScript. */
   html:not(.js) .js-only {
     display: none !important;

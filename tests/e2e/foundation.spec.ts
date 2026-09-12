@@ -1,8 +1,8 @@
 import { expect, test } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-const DARK_BG = 'rgb(11, 15, 20)';
-const LIGHT_BG = 'rgb(246, 244, 239)';
+const DARK_BG = 'rgb(7, 9, 13)';
+const LIGHT_BG = 'rgb(247, 249, 252)';
 
 const bodyBackground = (page: import('@playwright/test').Page) =>
   page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);

@@ -17,7 +17,7 @@ interface Props {
 const { caption, columns, rows } = Astro.props;
 ---
 
-<div class="scoreboard">
+<div class="scoreboard" data-reveal>
   <table role="table">
     <caption class="label">{caption}</caption>
     <thead role="rowgroup">
@@ -30,8 +30,8 @@ const { caption, columns, rows } = Astro.props;
     </thead>
     <tbody role="rowgroup">
       {
-        rows.map((row) => (
-          <tr role="row" class:list={{ 'is-highlight': row.highlight }}>
+        rows.map((row, index) => (
+          <tr role="row" class:list={{ 'is-highlight': row.highlight }} style={`--row: ${index}`}>
             <th role="rowheader" scope="row" class="scoreboard__year">
               {row.year}
             </th>
@@ -52,6 +52,30 @@ const { caption, columns, rows } = Astro.props;
 </div>
 
 <style>
+  /* One observer for the whole table; the rows stagger with CSS. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.reveal-ready) .scoreboard tbody tr {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
+    :global(html.reveal-ready) .scoreboard[data-revealed] tbody tr {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity var(--dur-2) var(--ease),
+        transform var(--dur-2) var(--ease);
+      transition-delay: calc(var(--row) * 70ms);
+    }
+  }
+
+  .scoreboard {
+    padding: var(--space-2) var(--space-6);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-3);
+    background: var(--surface);
+  }
+
   .scoreboard table {
     width: 100%;
     border-collapse: collapse;
@@ -118,7 +142,7 @@ const { caption, columns, rows } = Astro.props;
 
   .is-highlight .scoreboard__role,
   .is-highlight .scoreboard__year {
-    color: var(--accent-text);
+    color: var(--accent);
   }
 
   @media (min-width: 600px) {
@@ -164,12 +188,12 @@ const { caption, columns, rows } = Astro.props;
 
     .is-highlight th,
     .is-highlight td {
-      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      background: color-mix(in oklab, var(--accent) 12%, transparent);
     }
 
-    .is-highlight th {
+    .is-highlight th:first-child {
+      border-inline-start: 2px solid var(--accent);
       padding-inline-start: var(--space-3);
-      border-inline-start: 2px solid var(--accent-text);
     }
   }
 </style>

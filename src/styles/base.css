@@ -75,6 +75,14 @@
     text-wrap: balance;
   }
 
+  /* Gradient accent for a word or phrase inside a heading. */
+  .grad {
+    background: linear-gradient(100deg, var(--accent) 5%, var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
   h1 {
     font-size: var(--fs-display);
     line-height: var(--lh-display);
@@ -83,14 +91,12 @@
   h2 {
     font-size: var(--fs-h2);
     line-height: var(--lh-h2);
-    font-weight: 600;
   }
 
   h3 {
     font-size: var(--fs-h3);
     line-height: var(--lh-h3);
-    font-weight: 600;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
   }
 
   p,
@@ -103,7 +109,7 @@
   }
 
   a {
-    color: var(--accent-text);
+    color: var(--accent);
     text-decoration-thickness: 1px;
     text-underline-offset: 0.2em;
   }
@@ -120,12 +126,12 @@
   }
 
   ::selection {
-    background: color-mix(in oklab, var(--accent) 40%, transparent);
+    background: color-mix(in oklab, var(--accent) 45%, transparent);
     color: var(--text);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent-text);
+    outline: 2px solid var(--accent-soft);
     outline-offset: 2px;
   }
 

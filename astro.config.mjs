@@ -11,25 +11,16 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Bricolage Grotesque',
+      name: 'Space Grotesk',
       cssVariable: '--font-display',
-      weights: ['600 700'],
+      weights: ['400 700'],
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['sans-serif'],
     },
     {
       provider: fontProviders.google(),
-      name: 'Geist',
-      cssVariable: '--font-body',
-      weights: ['400 600'],
-      styles: ['normal'],
-      subsets: ['latin'],
-      fallbacks: ['sans-serif'],
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'Geist Mono',
+      name: 'JetBrains Mono',
       cssVariable: '--font-mono',
       weights: ['400 500'],
       styles: ['normal'],
