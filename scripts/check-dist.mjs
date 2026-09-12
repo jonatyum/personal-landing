@@ -11,6 +11,9 @@ const MARKERS = /\b(PENDIENTE|CONFIRMAR|FALTA)\b/;
 // With a base path (GitHub Pages project site), every root-relative URL must start with it.
 const BASE = (process.env.BASE_PATH ?? '').replace(/\/+$/, '');
 const ROOT_URL = /\s(?:href|src)="(\/(?!\/)[^"]*)"/g;
+// Once the site has its own domain, a *.github.io address in the output means the build ran
+// with the old Pages origin: the canonical URLs, sitemap and alternates would all point away.
+const GITHUB_PAGES_HOST = /\bhttps?:\/\/[^"'\s/]*\.github\.io\b/;
 // Local or private-network hosts in the output mean a shell variable leaked into the build.
 const PRIVATE_HOST =
   /\b(?:https?:)?\/\/(?:localhost|127\.\d+\.\d+\.\d+|10\.\d+\.\d+\.\d+|192\.168\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[01])\.\d+\.\d+)(?::\d+)?/;
@@ -25,6 +28,11 @@ async function* walk(dir) {
 
 const problems = [];
 let count = 0;
+
+// The custom domain, if this build publishes one.
+const domain = await readFile(join(DIST, 'CNAME'), 'utf8')
+  .then((text) => text.trim())
+  .catch(() => '');
 
 try {
   for await (const path of walk(DIST)) {
@@ -41,6 +49,10 @@ try {
     if (match) problems.push(`${rel}: contains the marker "${match[1]}"`);
     const host = text.match(PRIVATE_HOST);
     if (host) problems.push(`${rel}: points to a local or private host (a shell variable leaked into the build?)`);
+    if (domain) {
+      const stale = text.match(GITHUB_PAGES_HOST);
+      if (stale) problems.push(`${rel}: "${stale[0]}" is the old Pages origin, but CNAME says ${domain}`);
+    }
     if (BASE && ext === '.html') {
       for (const [, url] of text.matchAll(ROOT_URL)) {
         if (url !== BASE && !url.startsWith(`${BASE}/`)) {

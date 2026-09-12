@@ -11,9 +11,6 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    env:
-      # Build like the GitHub Pages project site, so base-path bugs fail here first.
-      BASE_PATH: /personal-landing
     steps:
       - uses: actions/checkout@v7
 
@@ -26,9 +23,9 @@ jobs:
       - run: npm run guard
       - run: npm run check:content
       - run: npm run check
+      # No env: the custom domain serves from the root and astro.config reads it from
+      # public/CNAME, so this builds exactly what the deploy publishes.
       - run: npm run build
-        env:
-          SITE_URL: ${{ vars.SITE_URL }}
       - run: npm run check:dist
 
       - run: npx playwright install --with-deps chromium

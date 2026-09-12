@@ -28,16 +28,30 @@ jobs:
       - id: pages
         uses: actions/configure-pages@v6
 
+      # public/CNAME is the single source of truth for the address. A custom domain serves
+      # the site from the root, so the build must not carry the /<repo> base path — and it
+      # must not wait for the Pages settings to catch up with the file either.
+      - id: site
+        run: |
+          if [ -f public/CNAME ]; then
+            domain="$(tr -d '[:space:]' < public/CNAME)"
+            echo "url=https://$domain" >> "$GITHUB_OUTPUT"
+            echo "base=" >> "$GITHUB_OUTPUT"
+          else
+            echo "url=${{ steps.pages.outputs.origin }}" >> "$GITHUB_OUTPUT"
+            echo "base=${{ steps.pages.outputs.base_path }}" >> "$GITHUB_OUTPUT"
+          fi
+
       - run: npm ci
       - run: npm run guard
       - run: npm run check:content
       - run: npm run build
         env:
-          SITE_URL: ${{ steps.pages.outputs.origin }}
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          SITE_URL: ${{ steps.site.outputs.url }}
+          BASE_PATH: ${{ steps.site.outputs.base }}
       - run: npm run check:dist
         env:
-          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          BASE_PATH: ${{ steps.site.outputs.base }}
 
       - uses: actions/upload-pages-artifact@v5
         with:
