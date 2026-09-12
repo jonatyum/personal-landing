@@ -20,6 +20,7 @@ export const collections = {
       monogram: z.string().max(3),
       handle: z.string(),
       jobTitle: text,
+      availability: text,
       location: z.object({ locality: z.string(), country: z.string(), countryCode: z.string().length(2) }),
       seo: z.object({ title: text, description: text }),
       knowsAbout: z.array(z.string()),
@@ -39,7 +40,6 @@ export const collections = {
     'hero',
     z.object({
       eyebrow: text,
-      status: text,
       title: text,
       titleAccent: text,
       subtitle: text,

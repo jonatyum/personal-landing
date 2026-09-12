@@ -1,6 +1,7 @@
 ---
 import Section from '../layout/Section.astro';
 import Icon from '../ui/Icon.astro';
+import Badge from '../ui/Badge.astro';
 import Pending from '../ui/Pending.astro';
 import { useTranslations, type Lang } from '../../i18n/ui';
 import { pick, single } from '../../lib/content';
@@ -25,7 +26,15 @@ const missing = contact.networks.filter((network) => !site.links[network.key]).m
     <div class="contact__copy">
       <p class="contact__title">{pick(contact.title, lang)}</p>
       <p class="lead">{pick(contact.body, lang)}</p>
-      {site.email && <p class="contact__email mono">{site.email}</p>}
+      {
+        site.email && (
+          <a class="contact__email" href={`mailto:${site.email}`}>
+            <span class="mono">{site.email}</span>
+            <Icon name="arrow-up-right" />
+          </a>
+        )
+      }
+      <Badge class="contact__status">{pick(site.availability, lang)}</Badge>
       {missing.length > 0 && <Pending label={`Faltan enlaces: ${missing.join(', ')}.`} />}
     </div>
 
@@ -71,8 +80,33 @@ const missing = contact.networks.filter((network) => !site.links[network.key]).m
     text-wrap: balance;
   }
 
+  /* The email is the primary action of the section, so it is a real link and looks like one. */
   .contact__email {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    align-self: start;
+    min-height: var(--tap);
+    margin-top: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-2);
+    color: var(--text);
+    font-size: var(--fs-body);
+    text-decoration: none;
+    transition:
+      border-color var(--dur-1) var(--ease),
+      background var(--dur-1) var(--ease);
+  }
+
+  .contact__email:hover {
+    border-color: var(--accent);
+    background: var(--surface-2);
     color: var(--accent);
+  }
+
+  .contact__copy :global(.contact__status) {
+    align-self: start;
   }
 
   .contact__links {

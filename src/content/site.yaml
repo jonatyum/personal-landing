@@ -7,6 +7,9 @@ main:
   jobTitle:
     es: Desarrollador web
     en: Web developer
+  availability:
+    es: Disponibilidad bajo coordinación
+    en: Available by arrangement
   location:
     locality: El Alto
     country: Bolivia
