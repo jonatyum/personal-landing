@@ -24,6 +24,7 @@ jobs:
 
       - run: npm ci
       - run: npm run guard
+      - run: npm run check:content
       - run: npm run check
       - run: npm run build
         env:

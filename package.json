@@ -12,6 +12,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "guard": "node scripts/guard-private.mjs",
+    "check:content": "node scripts/check-content.mjs",
     "check:dist": "node scripts/check-dist.mjs",
     "test:e2e": "playwright test"
   },
@@ -23,6 +24,7 @@
     "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.63.0",
     "@types/node": "^24.13.4",
+    "js-yaml": "^4.3.2",
     "typescript": "~6.0.3"
   }
 }
