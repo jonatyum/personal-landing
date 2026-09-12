@@ -1,20 +1,28 @@
 main:
   repoLabel:
     es: Ver código
+    en: View code
   items:
     - id: llm-optimal-segmentation
       featured: true
       title: LLM Optimal Segmentation
       context:
         es: Tesis de Informática · UMSA
+        en: Computer Science thesis · UMSA
       headline:
         es: Cómo partir un texto largo para que quepa en un LLM sin romper su sentido.
+        en: How to split a long text so it fits an LLM without breaking its meaning.
       body:
         es: >-
           Divide textos en segmentos que respetan la ventana de contexto del modelo, minimizando el costo
           computacional y maximizando la coherencia semántica. Usa programación dinámica con óptimo global, con
           variantes 2D, con solapamiento y de ventana deslizante. Incluye módulo de calibración, interfaz en
           Streamlit, CLI, API en Python y más de 173 tests.
+        en: >-
+          Splits text into segments that respect the model's context window, minimising computational cost and
+          maximising semantic coherence. It uses dynamic programming with a global optimum, plus 2D, overlapping
+          and sliding-window variants. It ships with a calibration module, a Streamlit interface, a CLI, a Python
+          API and more than 173 tests.
       tags: [Python, Ollama, spaCy, Streamlit]
       repo: https://github.com/jonatyum/llm-optimal-segmentation
 
@@ -22,13 +30,19 @@ main:
       title: Predicción del Mundial 2026
       context:
         es: Modelos estadísticos
+        en: Statistical models
       headline:
         es: Los 104 partidos del Mundial, pronosticados con ~49.000 partidos internacionales desde 1872.
+        en: All 104 World Cup matches, forecast from ~49,000 international games played since 1872.
       body:
         es: >-
           Un Elo propio y un ensamble Elo-Davidson + Poisson Dixon-Coles, validado con backtest sobre los
           Mundiales de 2018 y 2022. Simulaba el torneo completo con Monte Carlo, 100.000 simulaciones en unos
           2 segundos, y se actualizaba solo dos veces al día.
+        en: >-
+          A custom Elo rating and an Elo-Davidson + Poisson Dixon-Coles ensemble, validated by backtesting the
+          2018 and 2022 World Cups. It simulated the full tournament with Monte Carlo — 100,000 simulations in
+          about 2 seconds — and refreshed itself twice a day.
       tags: [Python, Monte Carlo, Backtesting]
       repo: https://github.com/jonatyum/mundial-statistic
 
@@ -36,12 +50,17 @@ main:
       title: FitApp
       context:
         es: Del gimnasio al código
+        en: From the gym to the code
       headline:
         es: Una app de entrenamiento sobre 1.324 ejercicios en 10 idiomas.
+        en: A training app built on 1,324 exercises in 10 languages.
       body:
         es: >-
           Mapa muscular interactivo, generador de rutinas y registro de entrenamientos. En desarrollo: un coach
           con IA (RAG con pgvector y Claude).
+        en: >-
+          Interactive muscle map, routine generator and workout log. In progress: an AI coach (RAG with pgvector
+          and Claude).
       tags: [React, Fastify, Prisma, PostgreSQL, Docker]
       repo: https://github.com/jonatyum/fitapp
 
@@ -49,20 +68,29 @@ main:
       title: Telegram Video Downloader
       context:
         es: Bot y web
+        en: Bot and web app
       headline:
         es: Pegas un enlace, recibes el video.
+        en: Paste a link, get the video.
       body:
         es: >-
           Un bot de Telegram y una web para descargar videos de TikTok, Instagram, Facebook, YouTube y X. Motor
           compartido entre bot y web, rate limiting y despliegue en Render y GitHub Pages.
+        en: >-
+          A Telegram bot and a web app that download videos from TikTok, Instagram, Facebook, YouTube and X. One
+          shared engine behind both, rate limiting, and deployment on Render and GitHub Pages.
       tags: [Python, FastAPI, yt-dlp, Supabase]
       repo: https://github.com/jonatyum/telegram-downloader-bot
 
   archive:
     title:
       es: Archivo universitario (2017–2020)
+      en: University archive (2017–2020)
     body:
       es: >-
         Material de INF-111 e INF-131 en Java, un cliente/servidor TCP, un ejemplo de Hibernate con PostgreSQL y
         ejercicios en MATLAB.
+      en: >-
+        Coursework for INF-111 and INF-131 in Java, a TCP client/server, a Hibernate example with PostgreSQL and
+        MATLAB exercises.
     link: https://github.com/jonatyum?tab=repositories

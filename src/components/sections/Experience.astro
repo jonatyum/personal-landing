@@ -14,7 +14,7 @@ const experience = await single('experience');
 ---
 
 <Section name="experience" lang={lang}>
-  <ol role="list" class="jobs">
+  <ol role="list" class="jobs" data-stagger>
     {
       experience.jobs.map((job, index) => (
         <li class="job">
@@ -46,7 +46,7 @@ const experience = await single('experience');
 
   <div class="stack-block">
     <h3>{pick(experience.stackTitle, lang)}</h3>
-    <dl class="stack-groups">
+    <dl class="stack-groups" data-stagger>
       {
         experience.stack.map((group) => (
           <div class="stack-group">

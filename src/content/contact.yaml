@@ -1,10 +1,13 @@
 main:
   title:
     es: ¿Buscas a alguien para tu equipo?
+    en: Looking for someone to join your team?
   body:
     es: Escríbeme por donde prefieras y coordinamos.
+    en: Write to me wherever suits you best and we'll take it from there.
   linksTitle:
     es: Dónde encontrarme
+    en: Where to find me
   networks:
     - key: telegram
       label: Telegram

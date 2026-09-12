@@ -12,22 +12,46 @@ interface Props {
 
 const { name, lang } = Astro.props;
 const t = useTranslations(lang);
-const section = sections.find((s) => s.key === `section.${name}`)!;
+const index = sections.findIndex((s) => s.key === `section.${name}`);
+const section = sections[index]!;
 const id = section.id[lang];
 const copy = (await single('sections'))[name];
+const number = String(index + 1).padStart(2, '0');
+// Every other section catches a little light at its top edge, so the page reads as a
+// sequence of blocks instead of one long sheet.
+const tinted = index % 2 === 1;
 ---
 
-<section id={id} class="section" aria-labelledby={`${id}-title`}>
-  <div class="container" data-reveal>
-    <SectionHeader title={t(section.key)} id={`${id}-title`}>
-      {copy?.lead && <p class="section__lead">{pick(copy.lead, lang)}</p>}
-      {copy?.intro && <p class="lead">{pick(copy.intro, lang)}</p>}
-    </SectionHeader>
-    <slot />
+<section
+  id={id}
+  class:list={['section', { 'section--tinted': tinted }]}
+  aria-labelledby={`${id}-title`}
+  data-section={id}
+>
+  <!-- Rail that carries the eye from the previous section into this one. -->
+  <span class="section__rail" aria-hidden="true"></span>
+  <div class="container">
+    <div data-reveal>
+      <SectionHeader title={t(section.key)} id={`${id}-title`} number={number}>
+        {copy?.lead && <p class="section__lead">{pick(copy.lead, lang)}</p>}
+        {copy?.intro && <p class="lead">{pick(copy.intro, lang)}</p>}
+      </SectionHeader>
+    </div>
+    <div data-reveal>
+      <slot />
+    </div>
   </div>
 </section>
 
 <style>
+  .section {
+    position: relative;
+  }
+
+  .section--tinted {
+    background: linear-gradient(180deg, color-mix(in oklab, var(--accent) 5%, var(--bg)), var(--bg) 55%);
+  }
+
   .section__lead {
     font-family: var(--font-display-stack);
     font-size: var(--fs-h3);
@@ -35,5 +59,58 @@ const copy = (await single('sections'))[name];
     font-weight: 600;
     letter-spacing: -0.015em;
     max-width: 30ch;
+  }
+
+  /* A hairline that drops from the section border down to the heading and ends in a dot.
+     It is drawn from top to bottom while the section scrolls into view. */
+  .section__rail {
+    position: absolute;
+    top: 0;
+    left: var(--gutter);
+    width: 1px;
+    height: var(--section-pad);
+    background: linear-gradient(to bottom, transparent, var(--accent));
+    transform-origin: 50% 0;
+    pointer-events: none;
+  }
+
+  .section__rail::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+    translate: -50% 50%;
+  }
+
+  @media (min-width: 1200px) {
+    /* Outside the content column once the container stops touching the viewport edges. */
+    .section__rail {
+      left: max(var(--gutter), 50% - var(--container) / 2 - var(--space-6));
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .section__rail {
+        scale: 1 0;
+        animation-name: rail-draw;
+        animation-duration: auto;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: view();
+        animation-range: entry 10% entry 85%;
+      }
+    }
+  }
+
+  @keyframes rail-draw {
+    to {
+      scale: 1 1;
+    }
   }
 </style>

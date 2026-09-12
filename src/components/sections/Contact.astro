@@ -31,7 +31,7 @@ const missing = contact.networks.filter((network) => !site.links[network.key]).m
 
     <div class="contact__links">
       <h3 class="label">{pick(contact.linksTitle, lang)}</h3>
-      <ul role="list">
+      <ul role="list" data-stagger>
         {
           networks.map((network) => (
             <li>

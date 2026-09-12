@@ -1,18 +1,23 @@
 main:
   degreesTitle:
     es: Estudios
+    en: Studies
   degrees:
     - title:
         es: Licenciatura en Informática
+        en: BSc in Computer Science
       org: Universidad Mayor de San Andrés (UMSA)
       detail:
         es: 'Tesis: LLM Optimal Segmentation'
+        en: 'Thesis: LLM Optimal Segmentation'
     - title:
         es: Técnico en ensamblaje, configuración y mantenimiento de computadoras
+        en: Technician in computer assembly, configuration and maintenance
       org: Fundación INFOCAL
       year: '2012'
   coursesTitle:
     es: Cursos
+    en: Courses
   courses:
     - title: Aplicaciones Industriales con Arduino
       org: UMSA

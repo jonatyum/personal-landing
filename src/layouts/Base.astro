@@ -4,7 +4,7 @@ import { Font } from 'astro:assets';
 import SkipLink from '../components/layout/SkipLink.astro';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
-import { defaultLang, type Lang } from '../i18n/ui';
+import { defaultLang, langHome, langs, locales, type Lang } from '../i18n/ui';
 import { withBase } from '../site';
 
 interface Props {
@@ -20,7 +20,14 @@ interface Props {
 const { title, description, lang = defaultLang, noindex = false, jsonLd } = Astro.props;
 // Canonical URLs need an absolute site (SITE_URL); without it the tags are left out.
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
-const ogLocale = { es: 'es_BO', en: 'en_US' }[lang];
+const ogLocale = locales[lang].og;
+// Language alternates only make sense on the translated pages, and only with an absolute site.
+const alternates =
+  Astro.site && !noindex
+    ? langs.map((code) => ({ code, ...locales[code], href: new URL(langHome(code), Astro.site).href }))
+    : [];
+// x-default sends anyone without a language match to the Spanish page.
+const xDefault = alternates.find((alt) => alt.code === defaultLang)?.href;
 ---
 
 <!doctype html>
@@ -35,11 +42,18 @@ const ogLocale = { es: 'es_BO', en: 'en_US' }[lang];
     {description && <meta name="description" content={description} />}
     {noindex && <meta name="robots" content="noindex" />}
     {canonical && !noindex && <link rel="canonical" href={canonical} />}
+    {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+    {xDefault && <link rel="alternate" hreflang="x-default" href={xDefault} />}
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={title} />
     {description && <meta property="og:description" content={description} />}
     {canonical && <meta property="og:url" content={canonical} />}
     <meta property="og:locale" content={ogLocale} />
+    {
+      alternates
+        .filter((alt) => alt.og !== ogLocale)
+        .map((alt) => <meta property="og:locale:alternate" content={alt.og} />)
+    }
     <meta name="twitter:card" content="summary" />
     {jsonLd && <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')} />}
     <!-- Runs before first paint: applies the saved theme so there is no flash. -->
@@ -66,6 +80,7 @@ const ogLocale = { es: 'es_BO', en: 'en_US' }[lang];
     <Footer lang={lang} />
     <script>
       import '../scripts/reveal';
+      import '../scripts/nav-spy';
     </script>
   </body>
 </html>

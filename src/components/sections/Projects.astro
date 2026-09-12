@@ -38,7 +38,7 @@ const repoLabel = pick(projects.repoLabel, lang);
       ))
     }
 
-    <ul role="list" class="projects__grid">
+    <ul role="list" class="projects__grid" data-stagger>
       {
         rest.map((item) => (
           <li>

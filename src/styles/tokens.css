@@ -63,7 +63,7 @@
     --space-16: 4rem;
     --space-24: 6rem;
     --space-32: 8rem;
-    --section-pad: clamp(4rem, 2.33rem + 7.41vw, 8rem);
+    --section-pad: clamp(3.5rem, 2.46rem + 4.63vw, 6rem);
 
     --radius-1: 6px;
     --radius-2: 11px;

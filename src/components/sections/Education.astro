@@ -16,7 +16,7 @@ const education = await single('education');
   <div class="education">
     <div class="education__col">
       <h3>{pick(education.degreesTitle, lang)}</h3>
-      <ul role="list">
+      <ul role="list" data-stagger>
         {
           education.degrees.map((degree) => (
             <li class="education__item">
@@ -35,7 +35,7 @@ const education = await single('education');
 
     <div class="education__col">
       <h3>{pick(education.coursesTitle, lang)}</h3>
-      <ul role="list">
+      <ul role="list" data-stagger>
         {
           education.courses.map((course) => (
             <li class="education__item">

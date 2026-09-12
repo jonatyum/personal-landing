@@ -6,6 +6,7 @@ main:
   handle: jonatyum
   jobTitle:
     es: Desarrollador web
+    en: Web developer
   location:
     locality: El Alto
     country: Bolivia
@@ -13,10 +14,14 @@ main:
   seo:
     title:
       es: Juan Jonatan Churata Apaza · Desarrollador web · Bolivia
+      en: Juan Jonatan Churata Apaza · Web developer · Bolivia
     description:
       es: >-
         Desarrollador web de El Alto, Bolivia: backend con Java y Spring Boot, frontend con React. Más de diez
         años en programación competitiva, del ICPC a la IOI 2025.
+      en: >-
+        Web developer from El Alto, Bolivia: back end with Java and Spring Boot, front end with React. Over ten
+        years in competitive programming, from the ICPC to IOI 2025.
   knowsAbout:
     [Java, Spring Boot, React, JavaScript, TypeScript, RabbitMQ, ActiveMQ, Grafana, Prometheus, Docker, PostgreSQL]
   email: jonatyum96@gmail.com

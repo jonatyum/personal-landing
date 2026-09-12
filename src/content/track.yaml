@@ -1,80 +1,107 @@
 main:
   caption:
     es: Trayectoria en programación competitiva, 2013–2025
+    en: Competitive programming track record, 2013–2025
   columns:
     year:
       es: Año
+      en: Year
     event:
       es: Evento
+      en: Event
     place:
       es: Lugar
+      en: Place
     role:
       es: Rol
+      en: Role
   rows:
     - year: 2025
       event:
         es: IOI 2025 · Olimpiada Internacional de Informática
+        en: IOI 2025 · International Olympiad in Informatics
       place: Sucre
       role:
         es: Comité técnico anfitrión (HTC)
+        en: Host Technical Committee (HTC)
       highlight: true
     - year: 2024
       event:
         es: IOI 2024
+        en: IOI 2024
       place: Egipto
       role:
         es: Comisión organizadora local de la IOI 2025
+        en: Local organising committee for IOI 2025
     - year: 2022
       event:
         es: ICPC Regional Sudamérica Sur
+        en: ICPC South America / South Regional
       place: La Paz · UPB
       role:
         es: Staff
+        en: Staff
     - year: 2017
       event:
         es: ICPC Bolivia, fase nacional
+        en: ICPC Bolivia, national round
       place: La Paz · EMI
       role:
         es: Juez
+        en: Judge
     - year: 2016
       event:
         es: ICPC Regional Sudamérica Sur
+        en: ICPC South America / South Regional
       place: La Paz · UMSA
       role:
         es: Staff
+        en: Staff
     - year: 2015
       event:
         es: ICPC Regional Sudamérica Sur
+        en: ICPC South America / South Regional
       place: Yacuiba
       role:
         es: Staff
+        en: Staff
     - year: 2015
       event:
         es: ICPC Bolivia, fase nacional
+        en: ICPC Bolivia, national round
       place: La Paz · UPB
       role:
         es: Competidor
+        en: Contestant
     - year: 2014
       event:
         es: Campamento de entrenamiento ICPC
+        en: ICPC training camp
       place: Universidad de Buenos Aires
       role:
         es: Participante
+        en: Participant
     - year: 2014
       event:
         es: 6.ª Olimpiada Científica Estudiantil
+        en: 6th National Student Science Olympiad
       place: Ministerio de Educación
       role:
         es: Comité logístico
+        en: Logistics committee
     - year: 2014
       event:
         es: 4.ª Olimpiada Científica Estudiantil
+        en: 4th National Student Science Olympiad
       place: Ministerio de Educación
       role:
         es: Colaborador
+        en: Contributor
     - year: 2013
       event:
         es: Exámenes de competencia para docentes y auxiliares (Programación)
+        en: Competitive examinations for lecturers and assistants (Programming)
       place: Informática · UMSA
       role:
         es: Tribunal
+        en: Examining board

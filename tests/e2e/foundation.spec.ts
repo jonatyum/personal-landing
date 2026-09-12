@@ -16,7 +16,9 @@ test.describe('accessibility', () => {
   for (const colorScheme of ['light', 'dark'] as const) {
     for (const width of [360, 1440]) {
       test(`no axe violations · ${colorScheme} · ${width}px`, async ({ page }) => {
-        await page.emulateMedia({ colorScheme });
+        // Reduced motion turns the reveal transitions off, so axe measures settled colours
+        // instead of racing a fade. Motion is covered by the reveal tests in content.spec.
+        await page.emulateMedia({ colorScheme, reducedMotion: 'reduce' });
         await page.setViewportSize({ width, height: 900 });
         await page.goto('./');
         const results = await new AxeBuilder({ page })
