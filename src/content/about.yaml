@@ -4,9 +4,9 @@ main:
   bio:
     - es: Soy Jonatan, desarrollador web de El Alto, Bolivia. La programación me abrió puertas que no tenía.
     - es: >-
-        Hoy trabajo en las dos puntas: servicios backend con Java y Spring Boot, e interfaces con React. Llevo
-        más de diez años en la programación competitiva: primero como competidor y después como juez y
-        organizador, hasta la IOI 2025.
+        Hoy hago desarrollo web completo: interfaces con React y servicios con Java y Spring Boot. Llevo más de
+        diez años en la programación competitiva: primero como competidor y después como juez y organizador,
+        hasta la IOI 2025.
     - es: Fuera del código, entreno en el gimnasio. Me mueven los retos.
   principlesTitle:
     es: Cómo trabajo

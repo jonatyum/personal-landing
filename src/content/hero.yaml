@@ -4,13 +4,13 @@ main:
   status:
     es: Disponibilidad bajo coordinación
   title:
-    es: Del backend en Java
+    es: Desarrollo web
   titleAccent:
-    es: a la interfaz en React.
+    es: de principio a fin.
   subtitle:
     es: >-
-      Soy Jonatan. Construyo aplicaciones web de principio a fin: servicios con Java y Spring Boot, mensajería y
-      observabilidad, e interfaces con React, con la base algorítmica de diez años de programación competitiva.
+      Soy Jonatan, desarrollador web de El Alto, Bolivia. Construyo la interfaz con React y el servidor con Java
+      y Spring Boot, con la base algorítmica de diez años de programación competitiva.
   primaryCta:
     label:
       es: Ver proyectos
@@ -19,7 +19,7 @@ main:
     label:
       es: Escríbeme
     section: contact
-  tech: [Java, Spring Boot, React, RabbitMQ, Docker]
+  tech: [React, TypeScript, Java, Spring Boot, Docker]
   code:
     file: OrderConsumer.java
     lines:

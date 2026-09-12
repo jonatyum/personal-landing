@@ -28,11 +28,14 @@ main:
     es: Con qué trabajo
   stack:
     - label:
-        es: Núcleo profesional
-      items: [Java, Spring Boot, Struts, RabbitMQ, ActiveMQ, Grafana, Prometheus, Docker, React, JavaScript, HTML/CSS]
+        es: Frontend
+      items: [React, JavaScript, TypeScript, HTML/CSS, Vite, Streamlit]
     - label:
-        es: En mis proyectos
-      items: [Python, FastAPI, TypeScript, Node.js, Fastify, Prisma, PostgreSQL, Supabase, Ollama, spaCy, Streamlit]
+        es: Backend y datos
+      items: [Java, Spring Boot, Struts, Python, Node.js, Fastify, FastAPI, RabbitMQ, ActiveMQ, Prisma, PostgreSQL]
+    - label:
+        es: Infraestructura y observabilidad
+      items: [Docker, Grafana, Prometheus, Linux, Render, GitHub Pages]
     - label:
         es: Base
-      items: [C++, SQL, Hibernate, Git, Linux, LaTeX, Scrum]
+      items: [C++, SQL, Hibernate, Git, LaTeX, Scrum]
