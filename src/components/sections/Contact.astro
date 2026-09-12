@@ -14,12 +14,10 @@ const t = useTranslations(lang);
 const contact = await single('contact');
 const site = await single('site');
 
-const links = [
-  site.email && { label: site.email, href: `mailto:${site.email}`, external: false },
-  { label: 'GitHub', href: site.links.github, external: true },
-  site.links.linkedin && { label: 'LinkedIn', href: site.links.linkedin, external: true },
-  { label: 'Codeforces', href: site.links.codeforces, external: true },
-].filter((link) => !!link);
+const networks = contact.networks
+  .map((network) => ({ ...network, href: site.links[network.key] }))
+  .filter((network) => !!network.href);
+const missing = contact.networks.filter((network) => !site.links[network.key]).map((network) => network.label);
 ---
 
 <Section name="contact" lang={lang}>
@@ -27,19 +25,21 @@ const links = [
     <div class="contact__copy">
       <p class="contact__title">{pick(contact.title, lang)}</p>
       <p class="lead">{pick(contact.body, lang)}</p>
-      {!site.email && <Pending label="Email a publicar (y LinkedIn, si se confirma)." />}
+      {site.email && <p class="contact__email mono">{site.email}</p>}
+      {missing.length > 0 && <Pending label={`Faltan enlaces: ${missing.join(', ')}.`} />}
     </div>
 
     <div class="contact__links">
       <h3 class="label">{pick(contact.linksTitle, lang)}</h3>
       <ul role="list">
         {
-          links.map((link) => (
+          networks.map((network) => (
             <li>
-              <a class="contact__link" href={link.href}>
-                <span>{link.label}</span>
-                {link.external && <span class="sr-only">{t('link.external')}</span>}
-                <Icon name={link.external ? 'arrow-up-right' : 'mail'} />
+              <a class="contact__link" href={network.href}>
+                <span class="contact__label">{network.label}</span>
+                {network.handle && <span class="contact__handle mono">{network.handle}</span>}
+                <span class="sr-only">{t('link.external')}</span>
+                <Icon name="arrow-up-right" />
               </a>
             </li>
           ))
@@ -65,10 +65,14 @@ const links = [
     font-family: var(--font-display-stack);
     font-size: var(--fs-h2);
     line-height: var(--lh-h2);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: var(--tracking-display);
     max-width: 18ch;
     text-wrap: balance;
+  }
+
+  .contact__email {
+    color: var(--accent);
   }
 
   .contact__links {
@@ -79,16 +83,12 @@ const links = [
 
   .contact__link {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    align-items: baseline;
     gap: var(--space-4);
     min-height: 3.5rem;
+    padding-block: var(--space-3);
     border-bottom: 1px solid var(--border-subtle);
     color: var(--text);
-    font-family: var(--font-display-stack);
-    font-size: var(--fs-h3);
-    font-weight: 600;
-    letter-spacing: -0.015em;
     text-decoration: none;
     transition: color var(--dur-1) var(--ease);
   }
@@ -97,13 +97,37 @@ const links = [
     border-top: 1px solid var(--border-subtle);
   }
 
+  .contact__label {
+    font-family: var(--font-display-stack);
+    font-size: var(--fs-h3);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .contact__handle {
+    color: var(--text-muted);
+    font-size: var(--fs-small);
+  }
+
+  .contact__link :global(.icon) {
+    margin-inline-start: auto;
+    align-self: center;
+    color: var(--text-muted);
+  }
+
   .contact__link:hover {
+    color: var(--accent);
+  }
+
+  .contact__link:hover :global(.icon) {
     color: var(--accent);
   }
 
   @media (prefers-reduced-motion: no-preference) {
     .contact__link :global(.icon) {
-      transition: transform var(--dur-2) var(--ease);
+      transition:
+        transform var(--dur-2) var(--ease),
+        color var(--dur-2) var(--ease);
     }
 
     .contact__link:hover :global(.icon) {
@@ -113,9 +137,9 @@ const links = [
 
   @media (min-width: 1024px) {
     .contact {
-      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
       gap: var(--space-16);
-      align-items: end;
+      align-items: start;
     }
   }
 </style>

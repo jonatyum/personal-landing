@@ -1,16 +1,16 @@
 main:
   eyebrow:
-    es: Desarrollador backend · El Alto, Bolivia
+    es: Desarrollador web · El Alto, Bolivia
   status:
-    es: Disponible para propuestas
+    es: Disponibilidad bajo coordinación
   title:
-    es: Backend en Java que
+    es: Del backend en Java
   titleAccent:
-    es: aguanta producción.
+    es: a la interfaz en React.
   subtitle:
     es: >-
-      Soy Jonatan Churata. Diseño servicios backend con Java y Spring Boot, con mensajería y observabilidad, y
-      con la base algorítmica de diez años de programación competitiva.
+      Soy Jonatan. Construyo aplicaciones web de principio a fin: servicios con Java y Spring Boot, mensajería y
+      observabilidad, e interfaces con React, con la base algorítmica de diez años de programación competitiva.
   primaryCta:
     label:
       es: Ver proyectos
@@ -19,7 +19,7 @@ main:
     label:
       es: Escríbeme
     section: contact
-  tech: [Java, Spring Boot, RabbitMQ, Grafana, Docker]
+  tech: [Java, Spring Boot, React, RabbitMQ, Docker]
   code:
     file: OrderConsumer.java
     lines:
@@ -52,7 +52,7 @@ main:
     - value:
         es: Desde 2022
       label:
-        es: Backend Java en NVD
+        es: Desarrollo de software en NVD
     - value:
         es: 10+ años
       label:

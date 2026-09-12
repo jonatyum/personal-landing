@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import Section from '../layout/Section.astro';
 import Pending from '../ui/Pending.astro';
+import photo from '../../assets/photo/jonatan.jpg';
 import type { Lang } from '../../i18n/ui';
 import { pick, single } from '../../lib/content';
 
@@ -15,12 +17,13 @@ const about = await single('about');
 <Section name="about" lang={lang}>
   <div class="about">
     <div class="about__bio">
+      <Image class="about__photo" src={photo} alt={pick(about.photoAlt, lang)} width={128} height={128} loading="lazy" />
       {
         about.bio.map((paragraph, index) => (
           <p class:list={{ lead: index === 0 }}>{pick(paragraph, lang)}</p>
         ))
       }
-      <Pending label="Confirmar cuánto de la historia personal va en la bio, y añadir una foto actual." />
+      <Pending label="Confirmar cuánto de la historia personal va en la bio." />
     </div>
 
     <div class="about__principles">
@@ -49,6 +52,15 @@ const about = await single('about');
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
+  }
+
+  .about__bio :global(.about__photo) {
+    width: 8rem;
+    height: 8rem;
+    margin-bottom: var(--space-2);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-3);
+    object-fit: cover;
   }
 
   .about__bio .lead {

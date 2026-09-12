@@ -1,7 +1,23 @@
 main:
   title:
-    es: ¿Buscas a alguien para tu equipo backend?
+    es: ¿Buscas a alguien para tu equipo?
   body:
-    es: Estoy abierto a propuestas de trabajo. Cuéntame del puesto.
+    es: Escríbeme por donde prefieras y coordinamos.
   linksTitle:
     es: Dónde encontrarme
+  networks:
+    - key: telegram
+      label: Telegram
+      handle: '@jonatyum'
+    - key: whatsapp
+      label: WhatsApp
+      handle: ''
+    - key: instagram
+      label: Instagram
+      handle: '@jonatyum'
+    - key: facebook
+      label: Facebook
+      handle: '/jonatyum'
+    - key: linkedin
+      label: LinkedIn
+      handle: '/in/jonatyum'

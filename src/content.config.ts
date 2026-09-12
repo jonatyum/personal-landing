@@ -16,13 +16,21 @@ export const collections = {
     'site',
     z.object({
       name: z.string(),
+      fullName: z.string(),
       monogram: z.string().max(3),
       handle: z.string(),
       jobTitle: text,
       location: z.object({ locality: z.string(), country: z.string(), countryCode: z.string().length(2) }),
       seo: z.object({ title: text, description: text }),
       knowsAbout: z.array(z.string()),
-      links: z.object({ github: url, codeforces: url, linkedin: url.optional() }),
+      links: z.object({
+        github: url,
+        telegram: url,
+        instagram: url,
+        facebook: url,
+        linkedin: url,
+        whatsapp: url.optional(),
+      }),
       email: z.email().optional(),
     }),
   ),
@@ -107,7 +115,6 @@ export const collections = {
           highlight: z.boolean().default(false),
         }),
       ),
-      profile: z.object({ label: text, url }),
     }),
   ),
 
@@ -115,6 +122,7 @@ export const collections = {
     'about',
     z.object({
       bio: z.array(text).min(1),
+      photoAlt: text,
       principlesTitle: text,
       principles: z.array(z.object({ title: text, proof: text })),
     }),
@@ -136,6 +144,14 @@ export const collections = {
       title: text,
       body: text,
       linksTitle: text,
+      // Networks are rendered only when site.links has the matching URL.
+      networks: z.array(
+        z.object({
+          key: z.enum(['telegram', 'whatsapp', 'instagram', 'facebook', 'linkedin']),
+          label: z.string(),
+          handle: z.string(),
+        }),
+      ),
     }),
   ),
 };

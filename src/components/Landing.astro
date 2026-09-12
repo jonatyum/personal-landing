@@ -26,8 +26,8 @@ const jsonLd = {
   ...(pageUrl && { url: pageUrl }),
   mainEntity: {
     '@type': 'Person',
-    name: site.name,
-    alternateName: site.handle,
+    name: site.fullName,
+    alternateName: [site.name, site.handle],
     jobTitle: pick(site.jobTitle, lang),
     address: {
       '@type': 'PostalAddress',
@@ -35,7 +35,7 @@ const jsonLd = {
       addressCountry: site.location.countryCode,
     },
     knowsAbout: site.knowsAbout,
-    sameAs: [site.links.github, site.links.codeforces, site.links.linkedin].filter(Boolean),
+    sameAs: Object.values(site.links).filter(Boolean),
     ...(pageUrl && { url: pageUrl }),
   },
 };

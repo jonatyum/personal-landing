@@ -1,7 +1,6 @@
 ---
 import Section from '../layout/Section.astro';
 import Scoreboard from '../blocks/Scoreboard.astro';
-import TextLink from '../ui/TextLink.astro';
 import type { Lang } from '../../i18n/ui';
 import { pick, single } from '../../lib/content';
 
@@ -30,20 +29,4 @@ const track = await single('track');
       highlight: row.highlight,
     }))}
   />
-  <p class="track__profile">
-    <TextLink href={track.profile.url} external lang={lang}>{pick(track.profile.label, lang)}</TextLink>
-  </p>
 </Section>
-
-<style>
-  .track__profile {
-    margin-top: var(--space-6);
-  }
-
-  .track__profile :global(a) {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--tap);
-    font-weight: 600;
-  }
-</style>
