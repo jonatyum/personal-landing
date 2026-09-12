@@ -13,6 +13,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 const hero = await single('hero');
+const site = await single('site');
 const href = (section: typeof hero.primaryCta.section) =>
   `${langHome(lang)}#${sectionId(`section.${section}`, lang)}`;
 ---
@@ -24,7 +25,7 @@ const href = (section: typeof hero.primaryCta.section) =>
     <div class="hero__copy">
       <div class="hero__meta">
         <p class="label">{pick(hero.eyebrow, lang)}</p>
-        <Badge>{pick(hero.status, lang)}</Badge>
+        <Badge>{pick(site.availability, lang)}</Badge>
       </div>
       <h1 id="hero-title">
         {pick(hero.title, lang)}{' '}
