@@ -15,7 +15,6 @@ const t = useTranslations(lang);
 const site = await single('site');
 const home = withBase();
 const links = sections.map((section) => ({
-  letter: section.letter,
   label: t(section.key),
   href: `${home}#${section.id[lang]}`,
 }));
@@ -34,12 +33,7 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
         {
           links.map((link) => (
             <li>
-              <a class="nav__link" href={link.href}>
-                <span class="nav__letter" aria-hidden="true">
-                  {link.letter}
-                </span>
-                {link.label}
-              </a>
+              <a class="nav__link" href={link.href}>{link.label}</a>
             </li>
           ))
         }
@@ -69,12 +63,7 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
         {
           links.map((link) => (
             <li>
-              <a class="menu__link" href={link.href}>
-                <span class="nav__letter" aria-hidden="true">
-                  {link.letter}
-                </span>
-                {link.label}
-              </a>
+              <a class="menu__link" href={link.href}>{link.label}</a>
             </li>
           ))
         }
@@ -141,13 +130,12 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
     place-items: center;
     width: 2.25rem;
     height: 2.25rem;
-    border: 1px solid var(--text);
     border-radius: var(--radius-2);
-    font-family: var(--font-mono-stack);
-    font-size: 0.875rem;
-    font-weight: 500;
+    background: linear-gradient(140deg, var(--accent), var(--accent-2));
+    font-size: 0.8125rem;
+    font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--text);
+    color: var(--on-accent);
   }
 
   .nav {
@@ -178,15 +166,13 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
     white-space: nowrap;
   }
 
-  .nav__link:hover {
-    background: var(--surface-2);
+  .nav__link {
+    color: var(--text-muted);
   }
 
-  .nav__letter {
-    font-family: var(--font-mono-stack);
-    font-size: 0.8125em;
-    font-weight: 500;
-    color: var(--accent-text);
+  .nav__link:hover {
+    color: var(--text);
+    background: var(--surface-2);
   }
 
   .site-header__actions {
@@ -204,7 +190,7 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
     place-items: center;
     width: var(--tap);
     height: var(--tap);
-    border: 1px solid var(--border-strong);
+    border: 1px solid var(--border-subtle);
     border-radius: var(--radius-2);
     background: transparent;
     color: var(--text);
@@ -322,7 +308,7 @@ const contactHref = `${home}#${sectionId('section.contact', lang)}`;
   }
 
   .menu__link:hover {
-    color: var(--accent-text);
+    color: var(--accent);
   }
 
   @media (prefers-reduced-motion: no-preference) {

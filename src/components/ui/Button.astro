@@ -90,12 +90,13 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
   }
 
   .btn--primary {
-    background: var(--accent);
+    background: linear-gradient(135deg, var(--accent), var(--accent-soft));
     color: var(--on-accent);
+    box-shadow: var(--shadow-accent);
   }
 
   .btn--primary:hover:not([aria-disabled='true']) {
-    background: color-mix(in oklab, var(--accent) 88%, var(--text));
+    filter: brightness(1.08);
   }
 
   .btn--secondary {
@@ -105,8 +106,8 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
   }
 
   .btn--secondary:hover:not([aria-disabled='true']) {
-    border-color: var(--text);
-    background: var(--surface-2);
+    border-color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 10%, transparent);
   }
 
   .btn--ghost {
@@ -121,6 +122,7 @@ const classes = ['btn', `btn--${variant}`, `btn--${size}`, className];
 
   .btn[aria-disabled='true'] {
     cursor: not-allowed;
+    box-shadow: none;
     background: var(--surface-2);
     border-color: var(--border-subtle);
     color: var(--text-muted);

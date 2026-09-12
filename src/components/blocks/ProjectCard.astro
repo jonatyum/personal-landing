@@ -38,6 +38,7 @@ const { lang, title, context, headline, body, tags, repo, repoLabel, featured = 
 
 <style>
   .project {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: var(--space-6);
@@ -45,6 +46,21 @@ const { lang, title, context, headline, body, tags, repo, repoLabel, featured = 
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-3);
     background: var(--surface);
+    transition:
+      border-color var(--dur-2) var(--ease),
+      transform var(--dur-2) var(--ease);
+  }
+
+  .project:hover,
+  .project:focus-within {
+    border-color: var(--accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .project:hover,
+    .project:focus-within {
+      transform: translateY(-4px);
+    }
   }
 
   .project__main {
@@ -54,7 +70,7 @@ const { lang, title, context, headline, body, tags, repo, repoLabel, featured = 
   }
 
   .project__headline {
-    font-weight: 600;
+    font-weight: 700;
     font-size: var(--fs-lead);
     line-height: var(--lh-lead);
   }

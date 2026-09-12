@@ -2,37 +2,53 @@ main:
   eyebrow:
     es: Desarrollador backend · El Alto, Bolivia
   status:
-    es: Abierto a propuestas
+    es: Disponible para propuestas
   title:
-    es: Backend Java con rigor de olimpiada.
+    es: Backend en Java que
+  titleAccent:
+    es: aguanta producción.
   subtitle:
     es: >-
-      Soy Jonatan Churata. Desde 2022 construyo sistemas backend con Java y Spring Boot. Llevo más de diez años
-      en la programación competitiva: fui competidor, juez y staff, y formé parte del comité técnico anfitrión de
-      la IOI 2025.
+      Soy Jonatan Churata. Diseño servicios backend con Java y Spring Boot, con mensajería y observabilidad, y
+      con la base algorítmica de diez años de programación competitiva.
   primaryCta:
-    label:
-      es: Escríbeme
-    section: contact
-  secondaryCta:
     label:
       es: Ver proyectos
     section: projects
-  verdict:
+  secondaryCta:
     label:
-      es: Stack principal
-    cases:
-      - Java · Spring Boot
-      - RabbitMQ · ActiveMQ
-      - Grafana · Prometheus
-      - Docker
+      es: Escríbeme
+    section: contact
+  tech: [Java, Spring Boot, RabbitMQ, Grafana, Docker]
+  code:
+    file: OrderConsumer.java
+    lines:
+      - - { t: '@RabbitListener', c: ann }
+        - { t: '(queues = ', c: pun }
+        - { t: '"orders.events"', c: str }
+        - { t: ')', c: pun }
+      - - { t: 'public void ', c: kw }
+        - { t: onEvent, c: fn }
+        - { t: '(OrderEvent event) {', c: pun }
+      - - { t: '  metrics', c: var }
+        - { t: '.timer(', c: pun }
+        - { t: '"order.latency"', c: str }
+        - { t: ').record(() -> {', c: pun }
+      - - { t: '    service', c: var }
+        - { t: '.process(event);', c: pun }
+      - - { t: '  });', c: pun }
+      - - { t: '}', c: pun }
+  # Real output of the thesis test suite; no invented metrics.
+  terminal:
+    project: llm-optimal-segmentation
+    command: pytest -q
     result:
-      es: Aceptado
+      es: 173 tests en verde
   proofs:
     - value:
         es: IOI 2025
       label:
-        es: Host Technical Committee
+        es: Comité técnico anfitrión
     - value:
         es: Desde 2022
       label:

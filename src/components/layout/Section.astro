@@ -18,8 +18,8 @@ const copy = (await single('sections'))[name];
 ---
 
 <section id={id} class="section" aria-labelledby={`${id}-title`}>
-  <div class="container">
-    <SectionHeader letter={section.letter} title={t(section.key)} id={`${id}-title`}>
+  <div class="container" data-reveal>
+    <SectionHeader title={t(section.key)} id={`${id}-title`}>
       {copy?.lead && <p class="section__lead">{pick(copy.lead, lang)}</p>}
       {copy?.intro && <p class="lead">{pick(copy.intro, lang)}</p>}
     </SectionHeader>

@@ -5,11 +5,44 @@ test.beforeEach(async ({ context }) => {
   await context.route(/^(?!https?:\/\/localhost[:/])/, (route) => route.abort('blockedbyclient'));
 });
 
-test('one h1 and the section h2s in A–F order', async ({ page }) => {
+test('one h1 and the sections in page order', async ({ page }) => {
   await page.goto('./');
   await expect(page.locator('h1')).toHaveCount(1);
   const h2s = await page.locator('main section > .container h2').allInnerTexts();
-  expect(h2s.map((text) => text.trim().charAt(0))).toEqual(['A', 'B', 'C', 'D', 'E', 'F']);
+  expect(h2s.map((text) => text.trim())).toEqual([
+    'Experiencia',
+    'Proyectos',
+    'Trayectoria',
+    'Sobre mí',
+    'Formación',
+    'Contacto',
+  ]);
+});
+
+test('content is visible once revealed on scroll', async ({ page }) => {
+  await page.goto('./');
+  await page.locator('#contacto').scrollIntoViewIfNeeded();
+  await expect(page.locator('#contacto .container')).toHaveAttribute('data-revealed', '');
+  await expect(page.locator('#contacto h2')).toBeVisible();
+});
+
+test('no content stays hidden after being scrolled into view', async ({ page }) => {
+  await page.goto('./');
+  for (const target of await page.locator('[data-reveal]').all()) {
+    await target.scrollIntoViewIfNeeded();
+  }
+  // Reveal transitions are asynchronous: poll until they settle.
+  await expect
+    .poll(
+      () =>
+        page.evaluate(() =>
+          [...document.querySelectorAll('[data-reveal], [data-reveal] tr')]
+            .filter((el) => Number(getComputedStyle(el).opacity) < 1)
+            .map((el) => `${el.tagName}.${el.className}`),
+        ),
+      { timeout: 20000 },
+    )
+    .toEqual([]);
 });
 
 test('landmarks: one banner, main and contentinfo', async ({ page }) => {

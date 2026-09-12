@@ -11,8 +11,6 @@ const es = {
   'menu.close': 'Cerrar menú',
   'link.external': '(enlace externo)',
   'footer.place': 'El Alto, Bolivia',
-  'verdict.case': 'caso',
-  'verdict.result': 'veredicto',
   'notFound.title': 'Página no encontrada',
   'notFound.body': 'Esta dirección no existe o cambió de sitio.',
   'notFound.home': 'Volver al inicio',
@@ -35,8 +33,6 @@ const en: Record<UiKey, string> = {
   'menu.close': 'Close menu',
   'link.external': '(external link)',
   'footer.place': 'El Alto, Bolivia',
-  'verdict.case': 'test',
-  'verdict.result': 'verdict',
   'notFound.title': 'Page not found',
   'notFound.body': 'This address does not exist or has moved.',
   'notFound.home': 'Back to the home page',
@@ -54,15 +50,15 @@ export function useTranslations(lang: Lang) {
   return (key: UiKey) => ui[lang][key];
 }
 
-/** Sections in page order. Letters mimic the problem letters of an ICPC set. */
+/** Sections in page order. */
 export const sections = [
-  { letter: 'A', key: 'section.experience', id: { es: 'experiencia', en: 'experience' } },
-  { letter: 'B', key: 'section.projects', id: { es: 'proyectos', en: 'projects' } },
-  { letter: 'C', key: 'section.track', id: { es: 'trayectoria', en: 'track-record' } },
-  { letter: 'D', key: 'section.about', id: { es: 'sobre-mi', en: 'about' } },
-  { letter: 'E', key: 'section.education', id: { es: 'formacion', en: 'education' } },
-  { letter: 'F', key: 'section.contact', id: { es: 'contacto', en: 'contact' } },
-] as const satisfies ReadonlyArray<{ letter: string; key: UiKey; id: Record<Lang, string> }>;
+  { key: 'section.experience', id: { es: 'experiencia', en: 'experience' } },
+  { key: 'section.projects', id: { es: 'proyectos', en: 'projects' } },
+  { key: 'section.track', id: { es: 'trayectoria', en: 'track-record' } },
+  { key: 'section.about', id: { es: 'sobre-mi', en: 'about' } },
+  { key: 'section.education', id: { es: 'formacion', en: 'education' } },
+  { key: 'section.contact', id: { es: 'contacto', en: 'contact' } },
+] as const satisfies ReadonlyArray<{ key: UiKey; id: Record<Lang, string> }>;
 
 export function sectionId(key: (typeof sections)[number]['key'], lang: Lang) {
   return sections.find((section) => section.key === key)!.id[lang];

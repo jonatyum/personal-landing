@@ -1,22 +1,20 @@
 ---
 interface Props {
-  letter: string;
   title: string;
-  /** Short mono line above the title, e.g. the section's time span. */
+  /** Short mono line above the title; defaults to the title itself. */
   meta?: string;
   id?: string;
 }
 
-const { letter, title, meta, id } = Astro.props;
+const { title, meta, id } = Astro.props;
 ---
 
 <header class="section-header">
-  {meta && <p class="label">{meta}</p>}
-  <h2 id={id}>
-    <span class="section-header__letter" aria-hidden="true">{letter}</span>
-    <span class="sr-only">{letter}.</span>
-    {title}
-  </h2>
+  <p class="label section-header__meta">
+    <span class="section-header__rule" aria-hidden="true"></span>
+    {meta ?? title}
+  </p>
+  <h2 id={id}>{title}</h2>
   <slot />
 </header>
 
@@ -24,22 +22,24 @@ const { letter, title, meta, id } = Astro.props;
   .section-header {
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
+    gap: var(--space-4);
     margin-bottom: var(--space-12);
   }
 
-  h2 {
+  .section-header__meta {
     display: flex;
-    align-items: baseline;
-    gap: 0.4em;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--accent);
   }
 
-  .section-header__letter {
-    font-family: var(--font-mono-stack);
-    font-size: 0.5em;
-    font-weight: 500;
-    letter-spacing: 0;
-    color: var(--accent-text);
-    transform: translateY(-0.15em);
+  .section-header__rule {
+    width: 2rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  h2 {
+    max-width: 20ch;
   }
 </style>

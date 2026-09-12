@@ -21,8 +21,10 @@ const { summary, open = false } = Astro.props;
 
 <style>
   .disclosure {
-    border-top: 1px solid var(--border-subtle);
-    border-bottom: 1px solid var(--border-subtle);
+    padding-inline: var(--space-6);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-3);
+    background: var(--surface);
   }
 
   summary {
@@ -31,7 +33,7 @@ const { summary, open = false } = Astro.props;
     justify-content: space-between;
     gap: var(--space-4);
     min-height: var(--tap);
-    padding-block: var(--space-2);
+    padding-block: var(--space-3);
     cursor: pointer;
     font-weight: 600;
     list-style: none;
@@ -42,7 +44,7 @@ const { summary, open = false } = Astro.props;
   }
 
   summary:hover {
-    color: var(--accent-text);
+    color: var(--accent);
   }
 
   summary :global(.disclosure__icon) {
