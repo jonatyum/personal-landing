@@ -62,6 +62,15 @@ test('every in-page link points to an existing section', async ({ page }) => {
   expect(missing).toEqual([]);
 });
 
+test('contact lists the social networks and no code profiles', async ({ page }) => {
+  await page.goto('./');
+  const contact = page.locator('#contacto');
+  for (const name of ['Telegram', 'Instagram', 'Facebook', 'LinkedIn']) {
+    await expect(contact.getByRole('link', { name: new RegExp(name) })).toHaveCount(1);
+  }
+  await expect(contact.getByRole('link', { name: /GitHub|Codeforces/ })).toHaveCount(0);
+});
+
 test('JSON-LD describes the person', async ({ page }) => {
   await page.goto('./');
   const raw = await page.locator('script[type="application/ld+json"]').textContent();
@@ -94,7 +103,7 @@ test.describe('without JavaScript', () => {
     await page.goto('./');
     await expect(page.locator('h1')).toBeVisible();
     await expect(page.getByRole('table')).toBeVisible();
-    await expect(page.getByRole('link', { name: /Codeforces/ }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /Telegram/ }).first()).toBeVisible();
   });
 });
 
