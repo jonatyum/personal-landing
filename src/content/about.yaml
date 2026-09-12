@@ -1,29 +1,45 @@
 main:
   photoAlt:
     es: Jonatan Churata, foto de perfil
+    en: Jonatan Churata, profile photo
   bio:
     - es: Soy Jonatan, desarrollador web de El Alto, Bolivia. La programación me abrió puertas que no tenía.
+      en: I'm Jonatan, a web developer from El Alto, Bolivia. Programming opened doors I didn't have.
     - es: >-
         Hoy hago desarrollo web completo: interfaces con React y servicios con Java y Spring Boot. Llevo más de
         diez años en la programación competitiva: primero como competidor y después como juez y organizador,
         hasta la IOI 2025.
+      en: >-
+        Today I do full web development: interfaces with React and services with Java and Spring Boot. I have
+        spent more than ten years in competitive programming — first as a contestant, then as a judge and
+        organiser, all the way to IOI 2025.
     - es: Fuera del código, entreno en el gimnasio. Me mueven los retos.
+      en: Away from code, I train at the gym. Challenges are what move me.
   principlesTitle:
     es: Cómo trabajo
+    en: How I work
   principles:
     - title:
         es: Resuelvo bajo presión
+        en: I solve under pressure
       proof:
         es: Más de diez años de programación competitiva.
+        en: More than ten years of competitive programming.
     - title:
         es: Explico lo complejo
+        en: I explain the complex
       proof:
         es: Cuatro años de clases prácticas en la UMSA.
+        en: Four years of lab teaching at UMSA.
     - title:
         es: Organizo y coordino
+        en: I organise and coordinate
       proof:
         es: Comités de la IOI 2024 y 2025, y staff en tres regionales del ICPC.
+        en: IOI 2024 and 2025 committees, and staff at three ICPC regionals.
     - title:
         es: Evalúo con criterio
+        en: I assess with judgement
       proof:
         es: Juez del ICPC Bolivia y tribunal de exámenes docentes en la UMSA.
+        en: ICPC Bolivia judge and member of UMSA's teaching examination board.

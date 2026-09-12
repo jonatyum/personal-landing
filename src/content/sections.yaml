@@ -2,19 +2,27 @@ main:
   experience:
     lead:
       es: 'Aplicaciones web completas: la interfaz, el servidor y lo que hay en medio.'
+      en: 'Complete web applications: the interface, the server and everything in between.'
   projects:
     lead:
       es: Lo que construyo por mi cuenta.
+      en: What I build on my own.
     intro:
       es: Proyectos propios, con el código abierto en GitHub.
+      en: Personal projects, with the source open on GitHub.
   track:
     lead:
       es: Diez años en la programación competitiva, a los dos lados del enunciado.
+      en: Ten years in competitive programming, on both sides of the problem statement.
     intro:
       es: >-
         Empecé resolviendo problemas contra el reloj. Después pasé a juzgarlos, a organizar competencias y, en
         2025, al comité técnico anfitrión de la Olimpiada Internacional de Informática, en Sucre: 330 concursantes
         de 84 delegaciones.
+      en: >-
+        I started out solving problems against the clock. Then I moved on to judging them, to running contests
+        and, in 2025, to the host technical committee of the International Olympiad in Informatics, in Sucre:
+        330 contestants from 84 delegations.
   about: {}
   education: {}
   contact: {}

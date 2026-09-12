@@ -22,7 +22,7 @@ test('one h1 and the sections in page order', async ({ page }) => {
 test('content is visible once revealed on scroll', async ({ page }) => {
   await page.goto('./');
   await page.locator('#contacto').scrollIntoViewIfNeeded();
-  await expect(page.locator('#contacto .container')).toHaveAttribute('data-revealed', '');
+  await expect(page.locator('#contacto [data-reveal]').first()).toHaveAttribute('data-revealed', '');
   await expect(page.locator('#contacto h2')).toBeVisible();
 });
 
@@ -121,5 +121,8 @@ test('sitemap is well-formed XML', async ({ request }) => {
   const response = await request.get('./sitemap.xml');
   expect(response.ok()).toBe(true);
   const body = await response.text();
-  expect(body).toContain('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">');
+  expect(body).toContain('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"');
+  // One entry per language, each carrying the alternates.
+  expect(body.match(/<loc>/g)).toHaveLength(2);
+  expect(body).toContain('hreflang="en"');
 });

@@ -49,6 +49,46 @@
         transform var(--dur-3) var(--ease);
       transition-delay: calc(var(--reveal-delay, 0) * 90ms);
     }
+
+    /* Lists inside a revealing block deal their items out one by one instead of
+       appearing as a slab. The delays stop at the tenth item: past that the wait
+       is longer than the reader's patience. */
+    html.reveal-ready [data-reveal] [data-stagger] > * {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > * {
+      opacity: 1;
+      transform: none;
+      transition:
+        opacity var(--dur-3) var(--ease),
+        transform var(--dur-3) var(--ease);
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(1) {
+      transition-delay: 80ms;
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(2) {
+      transition-delay: 150ms;
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(3) {
+      transition-delay: 220ms;
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(4) {
+      transition-delay: 290ms;
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(5) {
+      transition-delay: 360ms;
+    }
+
+    html.reveal-ready [data-revealed] [data-stagger] > *:nth-child(n + 6) {
+      transition-delay: 430ms;
+    }
   }
 
   /* Elements that only make sense with JavaScript. */

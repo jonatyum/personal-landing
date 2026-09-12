@@ -1,0 +1,65 @@
+---
+// Every language has the same single page, so the switch is a plain pair of links:
+// no JavaScript, and each one is a real URL a crawler can follow.
+import { langs, languages, langHome, locales, useTranslations, type Lang } from '../../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  class?: string;
+}
+
+const { lang, class: className } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class:list={['lang', className]} role="group" aria-label={t('lang.label')}>
+  {
+    langs.map((code) => (
+      <a
+        class="lang__option"
+        href={langHome(code)}
+        hreflang={locales[code].hreflang}
+        lang={locales[code].hreflang}
+        aria-current={code === lang ? 'page' : undefined}
+      >
+        {code.toUpperCase()}
+        <span class="sr-only"> · {languages[code]}</span>
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  /* Each option is its own 44px target; the group has no chrome of its own so the
+     two links stay at full tap size without growing the header. */
+  .lang__option {
+    display: inline-grid;
+    place-items: center;
+    min-width: var(--tap);
+    height: var(--tap);
+    border-radius: var(--radius-2);
+    color: var(--text-muted);
+    font-family: var(--font-mono-stack);
+    font-size: var(--fs-label);
+    letter-spacing: var(--tracking-label);
+    text-decoration: none;
+    transition: color var(--dur-1) var(--ease), background var(--dur-1) var(--ease);
+  }
+
+  .lang__option:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .lang__option[aria-current] {
+    color: var(--on-accent);
+    background: linear-gradient(140deg, var(--accent), var(--accent-2));
+    font-weight: 600;
+  }
+</style>

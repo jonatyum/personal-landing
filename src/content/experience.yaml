@@ -2,40 +2,54 @@ main:
   jobs:
     - role:
         es: Desarrollador de software
+        en: Software developer
       org: NVD (New Vision Data)
       orgDetail:
         es: Sede en Panamá
+        en: Based in Panama
       period:
         es: Desde 2022
+        en: Since 2022
       start: '2022'
       summary:
         es: Desarrollo backend en Java.
+        en: Back-end development in Java.
       achievements: []
     - role:
         es: Asistente de cátedra
+        en: Teaching assistant
       org: Universidad Mayor de San Andrés (UMSA)
       orgDetail:
         es: Carrera de Informática
+        en: Computer Science programme
       period:
         es: 2017 – 2021
+        en: 2017 – 2021
       start: '2017'
       end: '2021'
       summary:
         es: >-
           Clases prácticas de Introducción a la Informática, Estructura de Datos y Programación Orientada a
           Objetos.
+        en: >-
+          Lab sessions for Introduction to Computer Science, Data Structures and Object-Oriented Programming.
   stackTitle:
     es: Con qué trabajo
+    en: What I work with
   stack:
     - label:
         es: Frontend
+        en: Front end
       items: [React, JavaScript, TypeScript, HTML/CSS, Vite, Streamlit]
     - label:
         es: Backend y datos
+        en: Back end and data
       items: [Java, Spring Boot, Struts, Python, Node.js, Fastify, FastAPI, RabbitMQ, ActiveMQ, Prisma, PostgreSQL]
     - label:
         es: Infraestructura y observabilidad
+        en: Infrastructure and observability
       items: [Docker, Grafana, Prometheus, Linux, Render, GitHub Pages]
     - label:
         es: Base
+        en: Foundations
       items: [C++, SQL, Hibernate, Git, LaTeX, Scrum]

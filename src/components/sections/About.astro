@@ -17,7 +17,7 @@ const about = await single('about');
 <Section name="about" lang={lang}>
   <div class="about">
     <div class="about__bio">
-      <Image class="about__photo" src={photo} alt={pick(about.photoAlt, lang)} width={128} height={128} loading="lazy" />
+      <Image class="about__photo" src={photo} alt={pick(about.photoAlt, lang)} width={320} height={320} loading="lazy" />
       {
         about.bio.map((paragraph, index) => (
           <p class:list={{ lead: index === 0 }}>{pick(paragraph, lang)}</p>
@@ -28,7 +28,7 @@ const about = await single('about');
 
     <div class="about__principles">
       <h3>{pick(about.principlesTitle, lang)}</h3>
-      <ul role="list">
+      <ul role="list" data-stagger>
         {
           about.principles.map((item) => (
             <li>
@@ -48,19 +48,34 @@ const about = await single('about');
     gap: var(--space-12) var(--gutter);
   }
 
-  .about__bio {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
+  /* Block flow rather than a flex column so the portrait can float and the bio wraps
+     around it instead of leaving a gap beside a small square. */
+  .about__bio > * + * {
+    margin-top: var(--space-4);
+  }
+
+  /* The text next to the portrait starts level with it. */
+  .about__bio > :global(.about__photo) + * {
+    margin-top: 0;
   }
 
   .about__bio :global(.about__photo) {
-    width: 8rem;
-    height: 8rem;
-    margin-bottom: var(--space-2);
-    border: 1px solid var(--border-subtle);
+    width: 7rem;
+    height: 7rem;
+    margin: 0 var(--space-6) var(--space-3) 0;
     border-radius: var(--radius-3);
     object-fit: cover;
+    outline: 1px solid var(--border-subtle);
+    outline-offset: -1px;
+    box-shadow: var(--shadow-card);
+  }
+
+  @media (min-width: 600px) {
+    .about__bio :global(.about__photo) {
+      float: left;
+      width: 10.5rem;
+      height: 10.5rem;
+    }
   }
 
   .about__bio .lead {

@@ -1,23 +1,32 @@
 main:
   eyebrow:
     es: Desarrollador web · El Alto, Bolivia
+    en: Web developer · El Alto, Bolivia
   status:
     es: Disponibilidad bajo coordinación
+    en: Available by arrangement
   title:
     es: Desarrollo web
+    en: Web development
   titleAccent:
     es: de principio a fin.
+    en: end to end.
   subtitle:
     es: >-
       Soy Jonatan, desarrollador web de El Alto, Bolivia. Construyo la interfaz con React y el servidor con Java
       y Spring Boot, con la base algorítmica de diez años de programación competitiva.
+    en: >-
+      I'm Jonatan, a web developer from El Alto, Bolivia. I build the interface with React and the server with
+      Java and Spring Boot, on the algorithmic foundation of ten years of competitive programming.
   primaryCta:
     label:
       es: Ver proyectos
+      en: See projects
     section: projects
   secondaryCta:
     label:
       es: Escríbeme
+      en: Get in touch
     section: contact
   tech: [React, TypeScript, Java, Spring Boot, Docker]
   code:
@@ -44,20 +53,29 @@ main:
     command: pytest -q
     result:
       es: 173 tests en verde
+      en: 173 tests passing
   proofs:
     - value:
         es: IOI 2025
+        en: IOI 2025
       label:
         es: Comité técnico anfitrión
+        en: Host technical committee
     - value:
         es: Desde 2022
+        en: Since 2022
       label:
         es: Desarrollo de software en NVD
+        en: Software development at NVD
     - value:
         es: 10+ años
+        en: 10+ years
       label:
         es: En programación competitiva
+        en: In competitive programming
     - value:
         es: 4 años
+        en: 4 years
       label:
         es: Asistente de cátedra en la UMSA
+        en: Teaching assistant at UMSA

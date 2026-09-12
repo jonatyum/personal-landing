@@ -3,17 +3,18 @@ import Button from '../ui/Button.astro';
 import Badge from '../ui/Badge.astro';
 import CodeWindow from '../blocks/CodeWindow.astro';
 import TerminalCard from '../blocks/TerminalCard.astro';
-import { sectionId, type Lang } from '../../i18n/ui';
+import { sectionId, langHome, useTranslations, type Lang } from '../../i18n/ui';
 import { pick, single } from '../../lib/content';
-import { withBase } from '../../site';
 
 interface Props {
   lang: Lang;
 }
 
 const { lang } = Astro.props;
+const t = useTranslations(lang);
 const hero = await single('hero');
-const href = (section: typeof hero.primaryCta.section) => `${withBase()}#${sectionId(`section.${section}`, lang)}`;
+const href = (section: typeof hero.primaryCta.section) =>
+  `${langHome(lang)}#${sectionId(`section.${section}`, lang)}`;
 ---
 
 <section class="hero" aria-labelledby="hero-title">
@@ -42,7 +43,11 @@ const href = (section: typeof hero.primaryCta.section) => `${withBase()}#${secti
     </div>
 
     <div class="hero__visual">
-      <CodeWindow file={hero.code.file} lines={hero.code.lines} label={`${hero.code.file}, ejemplo de código`} />
+      <CodeWindow
+        file={hero.code.file}
+        lines={hero.code.lines}
+        label={`${hero.code.file}, ${t('code.example')}`}
+      />
       <TerminalCard
         project={hero.terminal.project}
         command={hero.terminal.command}
@@ -93,6 +98,72 @@ const href = (section: typeof hero.primaryCta.section) => `${withBase()}#${secti
 
   .hero > *:not(.hero__glow):not(.hero__fade) {
     position: relative;
+  }
+
+  /* The glow drifts up and dims as the page scrolls away, so the hero feels like a layer
+     the content slides over rather than a static banner. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .hero__glow {
+        animation-name: glow-drift;
+        animation-duration: auto;
+        animation-fill-mode: both;
+        animation-timing-function: linear;
+        animation-timeline: view();
+        animation-range: exit-crossing 0% exit 100%;
+      }
+    }
+  }
+
+  @keyframes glow-drift {
+    to {
+      translate: 0 -4rem;
+      opacity: 0.15;
+    }
+  }
+
+  /* First paint: the copy rises in on its own, without waiting for the reveal observer. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html.js) .hero__copy > *,
+    :global(html.js) .hero__visual > * {
+      animation: hero-in var(--dur-3) var(--ease) both;
+      animation-delay: calc(var(--hero-step, 0) * 80ms);
+    }
+
+    .hero__meta {
+      --hero-step: 0;
+    }
+
+    h1 {
+      --hero-step: 1;
+    }
+
+    .hero__subtitle {
+      --hero-step: 2;
+    }
+
+    .hero__ctas {
+      --hero-step: 3;
+    }
+
+    .hero__tech {
+      --hero-step: 4;
+    }
+
+    .hero__visual > :first-child {
+      --hero-step: 2;
+    }
+
+    .hero__visual > :last-child {
+      --hero-step: 3;
+    }
+  }
+
+  @keyframes hero-in {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
   }
 
   .hero__grid {
